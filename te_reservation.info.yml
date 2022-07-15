@@ -1,5 +1,5 @@
 name: 'Travel Engine Reservations'
 type: module
-description: 'Provides functionality for getting reservations info.'
+description: 'Provides functionality for parsing info from travel reservation emails.'
 core_version_requirement: ^9
 package: 'Custom'
