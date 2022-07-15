@@ -13,7 +13,7 @@ use Drupal\Core\Extension\ModuleHandler;
  * A simple form with a submit button that demonstrates
  * using the Travel Engine Email Parser service.
  */
-class GetReservationForm extends FormBase {
+class TEGetReservationForm extends FormBase {
 
   /**
    * Travel Engine Email Parser

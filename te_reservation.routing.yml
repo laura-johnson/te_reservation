@@ -1,7 +1,7 @@
 te_reservation.get_reservation_form:
   path: '/get-reservations'
   defaults:
-    _form: '\Drupal\te_reservation\Form\GetReservationForm'
+    _form: '\Drupal\te_reservation\Form\TEGetReservationForm'
     _title: 'Reservation desk'
   requirements:
     _access: 'TRUE'
