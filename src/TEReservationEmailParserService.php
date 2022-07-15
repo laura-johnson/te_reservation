@@ -2,10 +2,7 @@
 
 namespace Drupal\te_reservation;
 
-use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use PhpMimeMailParser\Parser;
-use Drupal\Core\Session\AccountProxyInterface;
 
 class TEReservationEmailParserService {
 
