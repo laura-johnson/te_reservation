@@ -1,0 +1,4 @@
+services:
+
+  te_reservation.reservation_email_parser:
+    class: Drupal\te_reservation\TEReservationEmailParserService

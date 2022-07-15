@@ -1,0 +1,2842 @@
+Delivered-To: Bob@example.com
+Received: by 2002:ac2:51bb:0:0:0:0:0 with SMTP id f27csp1400974lfk;
+        Sun, 14 Apr 2019 06:46:02 -0700 (PDT)
+X-Google-Smtp-Source: APXvYqx8LwCSJvm8vmXmy2WImKP2rb2nLBLBnrIZb/DLiKx3qjRvxBAU92qaxTRm5D4o3QW3DnAD
+X-Received: by 2002:ac8:4815:: with SMTP id g21mr56131959qtq.48.1555249562262;
+        Sun, 14 Apr 2019 06:46:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1555249562; cv=none;
+        d=google.com; s=arc-20160816;
+        b=ILINiPrBSoTfoyMzLFzFuF+fTdVU1PMuNUWew1q+xDSRBceDi0QmwNClFpUXeH/Qci
+         DsrAtkAfB80yntMOIac94yMOmUNaIsbyjDa/RW7Mc1Gj7KpsQqR0fmggItAQqC5RnvMg
+         5M32cOoI+uQr9VvwmayzTquj1qoBZqIPynShpDus9Nios7NpY+7PtNcmHdkvbL0wep44
+         IRvjCZHYEmw3s6rwpr1DfUyT8sg/w5/ZDxbWEnQvlxGOaynnHJ9ounGgjITTOTP1EAay
+         IHy+OhDjcfTqol9gPfTr8LBHboWEktiOPKkBlJjFJJhMSBBpWGzECM/OvJTh+OnECmA9
+         evBw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-id:mime-version:subject:message-id:to:from:date
+         :dkim-signature;
+        bh=ic5qM04bXyR+WEt0/6piNGL0HQBpHMrkSWz7WCji160=;
+        b=sKoxD54lAnTSjfMBK/Ilax/N7ucsugmNrL791WbMPomvjrqRpigQsC9OjFn0wJCzo+
+         wtEUkpyCam2tyVrJdZMXzN5nthCbhiTtKc3HzP+RDoOBoZ+4B+Vq6HMm7GJ3dHGSoWDi
+         p8qLsT6KqjCKeaqT0VelvRit6uf1YWY90z0JkkG1c+4c9DoM/20UKALXjfSWHjm/R4Nb
+         olMxd+q83XN1eHnEkWJImu3sCAFrYALb1GtAcYTWy8jyTCZmehMGKkNCLtbvOW6vJdfD
+         u6RedEFxKQn3GL7XjBt/CSVvdaXbpTtMajNtOL6CLGrwqKdvs3UjC+ps1rON32kKME3f
+         jjHQ==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@notify.email.aa.com header.s=selector1 header.b=ZQYJm0Cs;
+       spf=pass (google.com: domain of no-reply@notify.email.aa.com designates 170.75.215.143 as permitted sender) smtp.mailfrom=no-reply@notify.email.aa.com;
+       dmarc=pass (p=REJECT sp=NONE dis=NONE) header.from=aa.com
+Return-Path: <no-reply@notify.email.aa.com>
+Received: from prodamx09.prod.appriss.com (prodamx09.prod.appriss.com. [170.75.215.143])
+        by mx.google.com with ESMTPS id i53si4241785qvi.108.2019.04.14.06.46.01
+        for <Bob@example.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Sun, 14 Apr 2019 06:46:02 -0700 (PDT)
+Received-SPF: pass (google.com: domain of no-reply@notify.email.aa.com designates 170.75.215.143 as permitted sender) client-ip=170.75.215.143;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@notify.email.aa.com header.s=selector1 header.b=ZQYJm0Cs;
+       spf=pass (google.com: domain of no-reply@notify.email.aa.com designates 170.75.215.143 as permitted sender) smtp.mailfrom=no-reply@notify.email.aa.com;
+       dmarc=pass (p=REJECT sp=NONE dis=NONE) header.from=aa.com
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=notify.email.aa.com; s=selector1;
+	h=Content-ID:Content-Type:MIME-Version:Subject:Message-ID:To:From:Date; bh=ic5qM04bXyR+WEt0/6piNGL0HQBpHMrkSWz7WCji160=;
+	b=ZQYJm0Cs18lMRrxM4xc71Jw5SsWR1Wpq9gt1gWkXwv9P1zS+IP8tK+4nqQF2UmozPGIYdE9mmHlAQrbayKhS8kV8V8EnMRGJZ2jSatsBZASOSfjvLJMDDU5kOYEsoHaY1zI+spp/rfhmT07EAOSDFvmfNtN8nT5+nO/y6W13Mww=;
+Received: from localhost ([127.0.0.1] helo=prodamx09.prod.appriss.com)
+	by prodamx09.prod.appriss.com with esmtp (Exim 4.71)
+	(envelope-from <no-reply@notify.email.aa.com>)
+	id 1hFfSL-0008J1-KA
+	for Bob@example.com; Sun, 14 Apr 2019 09:46:01 -0400
+Date: Sun, 14 Apr 2019 09:46:01 -0400 (EDT)
+From: American Airlines <no-reply@notify.email.aa.com>
+To: "Bob@example.com" <Bob@example.com>
+Message-ID: <1224347941.6380433.1555249561579@globalnotifications.com>
+Subject: Your trip confirmation-WWFKDI  01JUN
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+	boundary="----=_Part_6380430_486743485.1555249561576"
+Content-ID: 804593749@localhost
+
+------=_Part_6380430_486743485.1555249561576
+Content-Type: text/plain; charset="iso-8859-15"
+Content-Transfer-Encoding: 7bit
+
+
+
+------=_Part_6380430_486743485.1555249561576
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+
+
+
+
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o=
+rg/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml">
+
+<head>
+  <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8">
+  <meta name=3D"viewport" content=3D"width=3Ddevice-width">
+  <title>AA Notification</title>
+</head>
+
+<body style=3D"-moz-box-sizing: border-box; -ms-text-size-adjust: 100%; -we=
+bkit-box-sizing: border-box; -webkit-text-size-adjust: 100%; Margin: 0; bac=
+kground: #F5F7F7 !important; box-sizing: border-box; color: #0a0a0a; font-f=
+amily: Helvetica, Arial, sans-serif; font-size: 16px; font-weight: normal; =
+line-height: 19px; margin: 0; min-width: 100%; padding: 0; text-align: left=
+; width: 100% !important; overflow-x: hidden;">
+  <style>
+
+    html {
+        width: 100%;
+    }
+    #outlook a {
+    padding: 0;
+    } /* Force Outlook to provide a "view in browser" menu link. */
+    body {
+    width: 100% !important;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    padding: 0;
+    } /* Prevent Webkit and Windows Mobile platforms from changing default =
+font sizes, while not breaking desktop design. */
+    .ExternalClass {
+    width: 100%;
+    } /* Force Hotmail to display emails at full width */
+    .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass f=
+ont, .ExternalClass td, .ExternalClass div {
+    line-height: 100%;
+    } /* Force Hotmail to display normal line spacing. */
+    #backgroundTable {
+    margin: 0;
+    padding: 0;
+    width: 100% !important;
+    line-height: 100% !important;
+    }
+    img {
+    outline: none;
+    text-decoration: none;
+    border: none;
+    -ms-interpolation-mode: bicubic;
+    }
+    a img {
+    border: none;
+    }
+    table td {
+    border-collapse: collapse;
+    }
+    table {
+    border-collapse: collapse;
+    mso-table-lspace: 0pt;
+    mso-table-rspace: 0pt;
+    }
+    sup {
+    vertical-align: top;
+    line-height: 100%;
+    }
+    .appleLinksGrey a {color: #36495A !important; text-decoration: none; fo=
+nt-size: 20px !important;}
+    .appleLinksBlue a {color: #0061AB !important; text-decoration: none;}
+
+
+    @media only screen {
+      html {
+        min-height: 100%;
+        background: #f3f3f3;
+      }
+    }
+
+    @media only screen and (max-width: 606px) {
+      td[class=3D"grid-block"] table { width: 100%; }
+      td[class=3D"grid-block"] .spacer { display: none; }
+      td[class=3D"grid-block"] .row { padding: 0 !important; }
+      td[class=3D"grid-block"] .section {
+          display: block;
+          float: left;
+          height: auto;
+          padding: 7px 7px;
+          margin-bottom: 8px;
+          -moz-box-sizing: border-box;
+          -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+      }
+      td[class=3D"grid-block"] .section.half {
+          width: 49%;
+      }
+      td[class=3D"grid-block"] .section.halfx {
+          width: 100%;
+      }
+      td[class=3D"grid-block"] .section.quarter {
+          width: 23.5%;
+      }
+      td[class=3D"grid-block"] .section.half:first-child,
+      td[class=3D"grid-block"] .section.quarter:first-child,
+      td[class=3D"grid-block"] .section.quarter + .spacer + .section.half {=
+ margin-right: 2%; }
+      td[class=3D"grid-block"] .section.full {
+          width: 100%;
+      }
+      /* Mobile width resize */
+      *[class=3Demailphoneresize] {
+      width: 320px !important;
+      }
+
+      .small-float-center {
+        margin: 0 auto !important;
+        float: none !important;
+        text-align: center !important;
+      }
+      .small-text-center {
+        text-align: center !important;
+      }
+      .small-text-left {
+        text-align: left !important;
+      }
+      .small-text-right {
+        text-align: right !important;
+      }
+    }
+
+    @media only screen and (max-width: 606px) {
+      table.body table.container .hide-for-large {
+        display: block !important;
+        width: auto !important;
+        overflow: visible !important;
+      }
+    }
+
+    @media only screen and (max-width: 606px) {
+      table.body table.container .row.hide-for-large,
+      table.body table.container .row.hide-for-large {
+        display: table !important;
+        width: 100% !important;
+      }
+    }
+
+    @media only screen and (max-width: 606px) {
+      table.body table.container .show-for-large {
+        display: none !important;
+        width: 0;
+        mso-hide: all;
+        overflow: hidden;
+      }
+    }
+
+    @media only screen and (max-width: 606px) {
+      table.body img {
+        width: auto;
+        height: auto;
+      }
+      table.body center {
+        min-width: 0 !important;
+      }
+      table.body .container {
+        width: 100% !important;
+      }
+      table.body .columns,
+      table.body .column {
+        height: auto !important;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+      }
+      table.body .columns .column,
+      table.body .columns .columns,
+      table.body .column .column,
+      table.body .column .columns {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+      }
+      table.body .collapse .columns,
+      table.body .collapse .column {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+      }
+      td.large-1,
+      th.large-1 {
+        width: 32.33333px;
+        padding-left: 8px;
+        padding-right: 8px; }
+
+      td.large-1.first,
+      th.large-1.first {
+        padding-left: 30px; }
+
+      td.large-1.last,
+      th.large-1.last {
+        padding-right: 30px; }
+
+      .collapse > tbody > tr > td.large-1,
+      .collapse > tbody > tr > th.large-1 {
+        padding-right: 0;
+        padding-left: 0;
+        width: 48.33333px; }
+
+      .collapse td.large-1.first,
+      .collapse th.large-1.first,
+      .collapse td.large-1.last,
+      .collapse th.large-1.last {
+        width: 56.33333px; }
+
+      td.large-2,
+      th.large-2 {
+        width: 80.66667px;
+        padding-left: 8px;
+        padding-right: 8px; }
+
+      td.large-2.first,
+      th.large-2.first {
+        padding-left: 30px; }
+
+      td.large-2.last,
+      th.large-2.last {
+        padding-right: 30px; }
+
+      .collapse > tbody > tr > td.large-2,
+      .collapse > tbody > tr > th.large-2 {
+        padding-right: 0;
+        padding-left: 0;
+        width: 96.66667px; }
+
+      .collapse td.large-2.first,
+      .collapse th.large-2.first,
+      .collapse td.large-2.last,
+      .collapse th.large-2.last {
+        width: 104.66667px; }
+
+      td.large-3,
+      th.large-3 {
+        width: 129px;
+        padding-left: 8px;
+        padding-right: 8px; }
+
+      td.large-3.first,
+      th.large-3.first {
+        padding-left: 30px; }
+
+      td.large-3.last,
+      th.large-3.last {
+        padding-right: 30px; }
+
+      .collapse > tbody > tr > td.large-3,
+      .collapse > tbody > tr > th.large-3 {
+        padding-right: 0;
+        padding-left: 0;
+        width: 145px; }
+
+      .collapse td.large-3.first,
+      .collapse th.large-3.first,
+      .collapse td.large-3.last,
+      .collapse th.large-3.last {
+        width: 153px; }
+
+      td.large-4,
+      th.large-4 {
+        width: 177.33333px;
+        padding-left: 8px;
+        padding-right: 8px; }
+
+      td.large-4.first,
+      th.large-4.first {
+        padding-left: 30px; }
+
+      td.large-4.last,
+      th.large-4.last {
+        padding-right: 30px; }
+
+      .collapse > tbody > tr > td.large-4,
+      .collapse > tbody > tr > th.large-4 {
+        padding-right: 0;
+        padding-left: 0;
+        width: 193.33333px; }
+
+      .collapse td.large-4.first,
+      .collapse th.large-4.first,
+      .collapse td.large-4.last,
+      .collapse th.large-4.last {
+        width: 201.33333px; }
+
+      td.large-5,
+      th.large-5 {
+        width: 225.66667px;
+        padding-left: 8px;
+        padding-right: 8px; }
+
+      td.large-5.first,
+      th.large-5.first {
+        padding-left: 30px; }
+
+      td.large-5.last,
+      th.large-5.last {
+        padding-right: 30px; }
+
+      .collapse > tbody > tr > td.large-5,
+      .collapse > tbody > tr > th.large-5 {
+        padding-right: 0;
+        padding-left: 0;
+        width: 241.66667px; }
+
+      .collapse td.large-5.first,
+      .collapse th.large-5.first,
+      .collapse td.large-5.last,
+      .collapse th.large-5.last {
+        width: 249.66667px; }
+
+      td.large-6,
+      th.large-6 {
+        width: 274px;
+        padding-left: 8px;
+        padding-right: 8px; }
+
+      td.large-6.first,
+      th.large-6.first {
+        padding-left: 30px; }
+
+      td.large-6.last,
+      th.large-6.last {
+        padding-right: 30px; }
+
+      .collapse > tbody > tr > td.large-6,
+      .collapse > tbody > tr > th.large-6 {
+        padding-right: 0;
+        padding-left: 0;
+        width: 290px; }
+
+      .collapse td.large-6.first,
+      .collapse th.large-6.first,
+      .collapse td.large-6.last,
+      .collapse th.large-6.last {
+        width: 298px; }
+
+      td.large-7,
+      th.large-7 {
+        width: 322.33333px;
+        padding-left: 8px;
+        padding-right: 8px; }
+
+      td.large-7.first,
+      th.large-7.first {
+        padding-left: 30px; }
+
+      td.large-7.last,
+      th.large-7.last {
+        padding-right: 30px; }
+
+      .collapse > tbody > tr > td.large-7,
+      .collapse > tbody > tr > th.large-7 {
+        padding-right: 0;
+        padding-left: 0;
+        width: 338.33333px; }
+
+      .collapse td.large-7.first,
+      .collapse th.large-7.first,
+      .collapse td.large-7.last,
+      .collapse th.large-7.last {
+        width: 346.33333px; }
+
+      td.large-8,
+      th.large-8 {
+        width: 370.66667px;
+        padding-left: 8px;
+        padding-right: 8px; }
+
+      td.large-8.first,
+      th.large-8.first {
+        padding-left: 30px; }
+
+      td.large-8.last,
+      th.large-8.last {
+        padding-right: 30px; }
+
+      .collapse > tbody > tr > td.large-8,
+      .collapse > tbody > tr > th.large-8 {
+        padding-right: 0;
+        padding-left: 0;
+        width: 386.66667px; }
+
+      .collapse td.large-8.first,
+      .collapse th.large-8.first,
+      .collapse td.large-8.last,
+      .collapse th.large-8.last {
+        width: 394.66667px; }
+
+      td.large-9,
+      th.large-9 {
+        width: 419px;
+        padding-left: 8px;
+        padding-right: 8px; }
+
+      td.large-9.first,
+      th.large-9.first {
+        padding-left: 30px; }
+
+      td.large-9.last,
+      th.large-9.last {
+        padding-right: 30px; }
+
+      .collapse > tbody > tr > td.large-9,
+      .collapse > tbody > tr > th.large-9 {
+        padding-right: 0;
+        padding-left: 0;
+        width: 435px; }
+
+      .collapse td.large-9.first,
+      .collapse th.large-9.first,
+      .collapse td.large-9.last,
+      .collapse th.large-9.last {
+        width: 443px; }
+
+      td.large-10,
+      th.large-10 {
+        width: 467.33333px;
+        padding-left: 8px;
+        padding-right: 8px; }
+
+      td.large-10.first,
+      th.large-10.first {
+        padding-left: 30px; }
+
+      td.large-10.last,
+      th.large-10.last {
+        padding-right: 30px; }
+
+      .collapse > tbody > tr > td.large-10,
+      .collapse > tbody > tr > th.large-10 {
+        padding-right: 0;
+        padding-left: 0;
+        width: 483.33333px; }
+
+      .collapse td.large-10.first,
+      .collapse th.large-10.first,
+      .collapse td.large-10.last,
+      .collapse th.large-10.last {
+        width: 491.33333px; }
+
+      td.large-11,
+      th.large-11 {
+        width: 515.66667px;
+        padding-left: 8px;
+        padding-right: 8px; }
+
+      td.large-11.first,
+      th.large-11.first {
+        padding-left: 30px; }
+
+      td.large-11.last,
+      th.large-11.last {
+        padding-right: 30px; }
+
+      .collapse > tbody > tr > td.large-11,
+      .collapse > tbody > tr > th.large-11 {
+        padding-right: 0;
+        padding-left: 0;
+        width: 531.66667px; }
+
+      .collapse td.large-11.first,
+      .collapse th.large-11.first,
+      .collapse td.large-11.last,
+      .collapse th.large-11.last {
+        width: 539.66667px; }
+
+      td.large-12,
+      th.large-12 {
+        width: 564px;
+        padding-left: 8px;
+        padding-right: 8px; }
+
+      td.large-12.first,
+      th.large-12.first {
+        padding-left: 30px; }
+
+      td.large-12.last,
+      th.large-12.last {
+        padding-right: 30px; }
+
+      .collapse > tbody > tr > td.large-12,
+      .collapse > tbody > tr > th.large-12 {
+        padding-right: 0;
+        padding-left: 0;
+        width: 600px; }
+
+      .collapse td.large-12.first,
+      .collapse th.large-12.first,
+      .collapse td.large-12.last,
+      .collapse th.large-12.last {
+        width: 708px; }
+
+      td.large-1 center,
+      th.large-1 center {
+        min-width: 0.33333px; }
+
+      td.large-2 center,
+      th.large-2 center {
+        min-width: 48.66667px; }
+
+      td.large-3 center,
+      th.large-3 center {
+        min-width: 97px; }
+
+      td.large-4 center,
+      th.large-4 center {
+        min-width: 145.33333px; }
+
+      td.large-5 center,
+      th.large-5 center {
+        min-width: 193.66667px; }
+
+      td.large-6 center,
+      th.large-6 center {
+        min-width: 242px; }
+
+      td.large-7 center,
+      th.large-7 center {
+        min-width: 290.33333px; }
+
+      td.large-8 center,
+      th.large-8 center {
+        min-width: 338.66667px; }
+
+      td.large-9 center,
+      th.large-9 center {
+        min-width: 387px; }
+
+      td.large-10 center,
+      th.large-10 center {
+        min-width: 435.33333px; }
+
+      td.large-11 center,
+      th.large-11 center {
+        min-width: 483.66667px; }
+
+      td.large-12 center,
+      th.large-12 center {
+        min-width: 532px; }
+
+      .body .columns td.large-1,
+      .body .column td.large-1,
+      .body .columns th.large-1,
+      .body .column th.large-1 {
+        width: 8.33333%; }
+
+      .body .columns td.large-2,
+      .body .column td.large-2,
+      .body .columns th.large-2,
+      .body .column th.large-2 {
+        width: 16.66667%; }
+
+      .body .columns td.large-3,
+      .body .column td.large-3,
+      .body .columns th.large-3,
+      .body .column th.large-3 {
+        width: 25%; }
+
+      .body .columns td.large-4,
+      .body .column td.large-4,
+      .body .columns th.large-4,
+      .body .column th.large-4 {
+        width: 33.33333%; }
+
+      .body .columns td.large-5,
+      .body .column td.large-5,
+      .body .columns th.large-5,
+      .body .column th.large-5 {
+        width: 41.66667%; }
+
+      .body .columns td.large-6,
+      .body .column td.large-6,
+      .body .columns th.large-6,
+      .body .column th.large-6 {
+        width: 50%; }
+
+      .body .columns td.large-7,
+      .body .column td.large-7,
+      .body .columns th.large-7,
+      .body .column th.large-7 {
+        width: 58.33333%; }
+
+      .body .columns td.large-8,
+      .body .column td.large-8,
+      .body .columns th.large-8,
+      .body .column th.large-8 {
+        width: 66.66667%; }
+
+      .body .columns td.large-9,
+      .body .column td.large-9,
+      .body .columns th.large-9,
+      .body .column th.large-9 {
+        width: 75%; }
+
+      .body .columns td.large-10,
+      .body .column td.large-10,
+      .body .columns th.large-10,
+      .body .column th.large-10 {
+        width: 83.33333%; }
+
+      .body .columns td.large-11,
+      .body .column td.large-11,
+      .body .columns th.large-11,
+      .body .column th.large-11 {
+        width: 91.66667%; }
+
+      .body .columns td.large-12,
+      .body .column td.large-12,
+      .body .columns th.large-12,
+      .body .column th.large-12 {
+        width: 100%; }
+
+      td.large-offset-1,
+      td.large-offset-1.first,
+      td.large-offset-1.last,
+      th.large-offset-1,
+      th.large-offset-1.first,
+      th.large-offset-1.last {
+        padding-left: 64.33333px; }
+
+      td.large-offset-2,
+      td.large-offset-2.first,
+      td.large-offset-2.last,
+      th.large-offset-2,
+      th.large-offset-2.first,
+      th.large-offset-2.last {
+        padding-left: 112.66667px; }
+
+      td.large-offset-3,
+      td.large-offset-3.first,
+      td.large-offset-3.last,
+      th.large-offset-3,
+      th.large-offset-3.first,
+      th.large-offset-3.last {
+        padding-left: 161px; }
+
+      td.large-offset-4,
+      td.large-offset-4.first,
+      td.large-offset-4.last,
+      th.large-offset-4,
+      th.large-offset-4.first,
+      th.large-offset-4.last {
+        padding-left: 209.33333px; }
+
+      td.large-offset-5,
+      td.large-offset-5.first,
+      td.large-offset-5.last,
+      th.large-offset-5,
+      th.large-offset-5.first,
+      th.large-offset-5.last {
+        padding-left: 257.66667px; }
+
+      td.large-offset-6,
+      td.large-offset-6.first,
+      td.large-offset-6.last,
+      th.large-offset-6,
+      th.large-offset-6.first,
+      th.large-offset-6.last {
+        padding-left: 306px; }
+
+      td.large-offset-7,
+      td.large-offset-7.first,
+      td.large-offset-7.last,
+      th.large-offset-7,
+      th.large-offset-7.first,
+      th.large-offset-7.last {
+        padding-left: 354.33333px; }
+
+      td.large-offset-8,
+      td.large-offset-8.first,
+      td.large-offset-8.last,
+      th.large-offset-8,
+      th.large-offset-8.first,
+      th.large-offset-8.last {
+        padding-left: 402.66667px; }
+
+      td.large-offset-9,
+      td.large-offset-9.first,
+      td.large-offset-9.last,
+      th.large-offset-9,
+      th.large-offset-9.first,
+      th.large-offset-9.last {
+        padding-left: 451px; }
+
+      td.large-offset-10,
+      td.large-offset-10.first,
+      td.large-offset-10.last,
+      th.large-offset-10,
+      th.large-offset-10.first,
+      th.large-offset-10.last {
+        padding-left: 499.33333px; }
+
+      td.large-offset-11,
+      td.large-offset-11.first,
+      td.large-offset-11.last,
+      th.large-offset-11,
+      th.large-offset-11.first,
+      th.large-offset-11.last {
+        padding-left: 547.66667px; }
+      td.small-1,
+      th.small-1 {
+        display: inline-block !important;
+        width: 8.33333% !important;
+      }
+      td.small-2,
+      th.small-2 {
+        display: inline-block !important;
+        width: 16.66667% !important;
+      }
+      td.small-3,
+      th.small-3 {
+        display: inline-block !important;
+        width: 25% !important;
+      }
+      td.small-4,
+      th.small-4 {
+        display: inline-block !important;
+        width: 33.33333% !important;
+      }
+      td.small-5,
+      th.small-5 {
+        display: inline-block !important;
+        width: 41.66667% !important;
+      }
+      td.small-6,
+      th.small-6 {
+        display: inline-block !important;
+        width: 50% !important;
+      }
+      td.small-7,
+      th.small-7 {
+        display: inline-block !important;
+        width: 58.33333% !important;
+      }
+      td.small-8,
+      th.small-8 {
+        display: inline-block !important;
+        width: 66.66667% !important;
+      }
+      td.small-9,
+      th.small-9 {
+        display: inline-block !important;
+        width: 75% !important;
+      }
+      td.small-10,
+      th.small-10 {
+        display: inline-block !important;
+        width: 83.33333% !important;
+      }
+      td.small-11,
+      th.small-11 {
+        display: inline-block !important;
+        width: 91.66667% !important;
+      }
+      td.small-12,
+      th.small-12 {
+        display: block !important;
+        width: 100% !important;
+      }
+      .columns td.small-12,
+      .column td.small-12,
+      .columns th.small-12,
+      .column th.small-12 {
+        width: 100% !important;
+      }
+      table.body td.small-offset-1,
+      table.body th.small-offset-1 {
+        margin-left: 8.33333% !important;
+        Margin-left: 8.33333% !important;
+      }
+      table.body td.small-offset-2,
+      table.body th.small-offset-2 {
+        margin-left: 16.66667% !important;
+        Margin-left: 16.66667% !important;
+      }
+      table.body td.small-offset-3,
+      table.body th.small-offset-3 {
+        margin-left: 25% !important;
+        Margin-left: 25% !important;
+      }
+      table.body td.small-offset-4,
+      table.body th.small-offset-4 {
+        margin-left: 33.33333% !important;
+        Margin-left: 33.33333% !important;
+      }
+      table.body td.small-offset-5,
+      table.body th.small-offset-5 {
+        margin-left: 41.66667% !important;
+        Margin-left: 41.66667% !important;
+      }
+      table.body td.small-offset-6,
+      table.body th.small-offset-6 {
+        margin-left: 50% !important;
+        Margin-left: 50% !important;
+      }
+      table.body td.small-offset-7,
+      table.body th.small-offset-7 {
+        margin-left: 58.33333% !important;
+        Margin-left: 58.33333% !important;
+      }
+      table.body td.small-offset-8,
+      table.body th.small-offset-8 {
+        margin-left: 66.66667% !important;
+        Margin-left: 66.66667% !important;
+      }
+      table.body td.small-offset-9,
+      table.body th.small-offset-9 {
+        margin-left: 75% !important;
+        Margin-left: 75% !important;
+      }
+      table.body td.small-offset-10,
+      table.body th.small-offset-10 {
+        margin-left: 83.33333% !important;
+        Margin-left: 83.33333% !important;
+      }
+      table.body td.small-offset-11,
+      table.body th.small-offset-11 {
+        margin-left: 91.66667% !important;
+        Margin-left: 91.66667% !important;
+      }
+      table.body table.columns td.expander,
+      table.body table.columns th.expander {
+        display: none !important;
+      }
+      table.body .right-text-pad,
+      table.body .text-pad-right {
+        padding-left: 10px !important;
+      }
+      table.body .left-text-pad,
+      table.body .text-pad-left {
+        padding-right: 10px !important;
+      }
+      table.menu {
+        width: 100% !important;
+      }
+      table.menu td,
+      table.menu th {
+        width: auto !important;
+        display: inline-block !important;
+      }
+      table.menu.vertical td,
+      table.menu.vertical th,
+      table.menu.small-vertical td,
+      table.menu.small-vertical th {
+        display: block !important;
+      }
+      table.menu[align=3D"center"] {
+        width: auto !important;
+      }
+    }
+  </style>
+ =20
+    <img src=3D"https://tag.yieldoptimizer.com/ps/ps?t=3Di&p=3D2398&exetds=
+=3D20160713" width=3D"1" height=3D"1" />
+  <img src=3D"https://pixel.sojern.com/pixel/img/32715?p_v=3D1&f_v=3Dv3_ima=
+ge&vid=3Dair" width=3D"1" height=3D"1" />
+
+  <table class=3D"body" data-made-with-foundation=3D"" style=3D"Margin: 0; =
+background: #ffffff !important; border-collapse: collapse; border-spacing: =
+0; color: #0a0a0a; font-family: Helvetica, Arial, sans-serif; font-size: 16=
+px; font-weight: normal; height: 100%; line-height: 19px; margin: 0; paddin=
+g: 0; text-align: left; vertical-align: top; width: 100%; overflow-x:hidden=
+;">
+    <tbody>
+      <tr style=3D"padding: 0; text-align: left; vertical-align: top;">
+        <td class=3D"float-center" align=3D"center" valign=3D"top">
+          <center data-parsed=3D"" style=3D"min-width: 600px; width: 100%;"=
+>
+            <table class=3D"container float-center" style=3D"Margin: 0 auto=
+; background: #fefefe; border-collapse: collapse; border-spacing: 0; float:=
+ none; margin: 0 auto; padding: 0; text-align: center; vertical-align: top;=
+ width: 600px;">
+              <tbody>
+                <tr style=3D"padding: 0; text-align: left; vertical-align: =
+top;">
+                  <td>
+                    <table class=3D"spacer" style=3D"border-collapse: colla=
+pse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top;"=
+>
+                      <tbody>
+                        <tr style=3D"padding: 0; text-align: left; vertical=
+-align: top;">
+                          <td height=3D"16px" style=3D"font-size:16px;line-=
+height:16px;">&nbsp;</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <table class=3D"row" style=3D"border-collapse: collapse=
+; border-spacing: 0; display: table; padding: 0; position: relative; text-a=
+lign: left; vertical-align: top; width: 100%;">
+                      <tbody>
+                        <tr style=3D"padding: 0; text-align: left; vertical=
+-align: top;">
+                          <th class=3D"small-12 large-12 columns first last=
+" style=3D"Margin: 0 auto; color: #0a0a0a; font-family: Helvetica, Arial, s=
+ans-serif; font-size: 16px; font-weight: normal; line-height: 19px; margin:=
+ 0 auto; padding: 0; padding-bottom: 16px; padding-left: 16px; padding-righ=
+t: 16px; text-align: left; width: 564px;">
+                            <table style=3D"border-collapse: collapse; bord=
+er-spacing: 0; padding: 0; text-align: left; vertical-align: top; width: 10=
+0%;">
+                              <tbody>
+                                <tr style=3D"padding: 0; text-align: left; =
+vertical-align: top;">
+                                  <th style=3D"Margin: 0; color: #0a0a0a; f=
+ont-family: Helvetica, Arial, sans-serif; font-size: 16px; font-weight: nor=
+mal; line-height: 19px; margin: 0; padding: 0; text-align: left;">
+                                   =20
+                                    <table class=3D"row" style=3D"border-co=
+llapse: collapse; border-spacing: 0; display: table; padding: 0; position: =
+relative; text-align: left; vertical-align: top; width: 100%;">
+                                      <tbody>
+                                        <tr style=3D"padding: 0; text-align=
+: left; vertical-align: top;">
+                                          <td style=3D"padding-left:30px;">
+                                            <a href=3D"https://www.aa.com/h=
+omePage.do"><img src=3D"https://www.aa.com/content/images/email/marketingOn=
+eOff/eTDS/logo_AA.gif" class=3D"float-left" style=3D"-ms-interpolation-mode=
+: bicubic; clear: both; display: block; float: left; max-width: 100%; outli=
+ne: none; text-align: left; text-decoration: none; width: auto;"></a>
+                                          </td>
+                                          <td style=3D"padding-right:30px;"=
+ algin=3D"right;">
+                                            <a href=3D"https://www.oneworld=
+.com/"><img src=3D"https://www.aa.com/content/images/email/marketingOneOff/=
+eTDS/nav_oneworld.jpg" class=3D"float-right" style=3D"-ms-interpolation-mod=
+e: bicubic; clear: both; display: block; float: right; max-width: 100%; out=
+line: none; text-align: right; text-decoration: none; width: auto;" align=
+=3D"right"></a>
+                                          </td>
+                                          <th class=3D"expander" style=3D"M=
+argin: 0; color: #0a0a0a; font-family: Helvetica, Arial, sans-serif; font-s=
+ize: 16px; font-weight: normal; line-height: 19px; margin: 0; padding: 0 !i=
+mportant; text-align: left; visibility: hidden; width: 0;"></th>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                   =20
+                                    <hr style=3D"border-bottom: 1px solid #=
+cacaca; border-left: 0; border-right: 0; border-top: 0; clear: both; height=
+: 0; margin-top:10px; max-width: 600px;">
+                                    <table class=3D"spacer" style=3D"border=
+-collapse: collapse; border-spacing: 0; padding: 0; text-align: left; verti=
+cal-align: top; width: 100%;">
+                                      <tbody>
+                                        <tr style=3D"padding: 0; text-align=
+: left; vertical-align: top;">
+                                          <td height=3D"10px" style=3D"font=
+-size:10px;line-height:10px;">&nbsp;</td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                    <table style=3D"border-collapse: collap=
+se; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; w=
+idth: 100%;">
+                                      <tbody>
+                                        <tr style=3D"padding: 0; text-align=
+: left; vertical-align: top;">
+                                          <td style=3D"padding-left: 30px;"=
+>
+                                            <p class=3D"text-left text-smal=
+l" style=3D"Margin: 0;color: #36495A; font-family: Helvetica, Arial, sans-s=
+erif; font-size: 14px; font-weight: normal; line-height: 14px; margin: 0 0 =
+10px 0; padding: 0; text-align: left;">
+                                              Hello Bob Example!
+                                              </p>
+                                          </td>
+                                          <td style=3D"padding-right: 30px;=
+">
+                                            <p class=3D"text-right" style=
+=3D"Margin: 0; color: #36495A; font-family: Helvetica, Arial, sans-serif; f=
+ont-size: 14px; font-weight: normal; line-height: 14px; margin: 0 0 10px 0;=
+ padding: 0; text-align: right;">
+                                                Issued: Apr 14, 2019
+                                            </p>
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                   =20
+                                    <table style=3D"border-collapse: collap=
+se; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; w=
+idth: 100%;">
+                                      <tbody>
+                                        <tr style=3D"padding: 0; text-align=
+: left; vertical-align: top;">
+                                          <td background=3D"http://images.a=
+ppriss.com/amair/email/header-background.png" bgcolor=3D"#1279ce" width=3D"=
+548" valign=3D"top">
+                                           =20
+                                            <div>
+                                              <table class=3D"spacer" style=
+=3D"border-collapse: collapse; border-spacing: 0; padding: 0; text-align: l=
+eft; vertical-align: top; width: 100%;">
+                                                <tbody>
+                                                  <tr style=3D"padding: 0; =
+text-align: left; vertical-align: top;">
+                                                    <td height=3D"15px" sty=
+le=3D"font-size:15px;line-height:15px;">&nbsp;</td>
+                                                  </tr>
+                                                </tbody>
+                                              </table>
+                                              <table style=3D"border-collap=
+se: collapse; border-spacing: 0; padding: 0; text-align: left; vertical-ali=
+gn: top; width: 100%;">
+                                                <tbody>
+                                                  <tr style=3D"padding: 0; =
+text-align: left; vertical-align: top;">
+                                                    <td>
+                                                      <center style=3D"min-=
+width: 532px; width: 100%;"><img src=3D"http://images.appriss.com/amair/ema=
+il/HeaderIcon-Ticket.png" class=3D"header-logo-img" style=3D"-ms-interpolat=
+ion-mode: bicubic; clear: both; display: block; max-width: 100%; outline: n=
+one; padding-bottom: 0; padding-top: 0px; text-decoration: none; width: aut=
+o;"></center>
+                                                    </td>
+                                                  </tr>
+                                                  <tr style=3D"padding: 0; =
+text-align: left; vertical-align: top;">
+                                                    <td>
+                                                      <table class=3D"space=
+r" style=3D"border-collapse: collapse; border-spacing: 0; padding: 0; text-=
+align: left; vertical-align: top; width: 100%;">
+                                                        <tbody>
+                                                          <tr style=3D"padd=
+ing: 0; text-align: left; vertical-align: top;">
+                                                            <td height=3D"1=
+5px" style=3D"font-size:15;line-height:15px;">&nbsp;</td>
+                                                          </tr>
+                                                        </tbody>
+                                                      </table>
+                                                    </td>
+                                                  </tr>
+                                                  <tr style=3D"padding: 0; =
+text-align: left; vertical-align: top;">
+                                                    <td>
+                                                      <p class=3D"text-cent=
+er header-logo-text" style=3D"color: #ffffff; font-family: Helvetica, Arial=
+, sans-serif; font-size: 27px; font-weight: normal; line-height: 27px; marg=
+in: 0; padding: 0; text-align: center;">
+                                                       =20
+                                                          Your trip confirm=
+ation and receipt
+                                                       =20
+                                                      </p>
+                                                    </td>
+                                                  </tr>
+                                                  <tr style=3D"padding: 0; =
+text-align: left; vertical-align: top;">
+                                                    <td>
+                                                      <table class=3D"space=
+r" style=3D"border-collapse: collapse; border-spacing: 0; padding: 0; text-=
+align: left; vertical-align: top; width: 100%;">
+                                                        <tbody>
+                                                          <tr style=3D"padd=
+ing: 0; text-align: left; vertical-align: top;">
+                                                            <td height=3D"1=
+0px" style=3D"font-size:10px;line-height:10px;">&nbsp;</td>
+                                                          </tr>
+                                                        </tbody>
+                                                      </table>
+                                                    </td>
+                                                  </tr>
+                                                </tbody>
+                                              </table>
+                                            </div>
+                                           =20
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+
+
+                                   =20
+                                    <table class=3D"spacer" style=3D"border=
+-collapse: collapse; border-spacing: 0; padding: 0; text-align: left; verti=
+cal-align: top; width: 100%;">
+                                        <tbody>
+                                          <tr style=3D"padding: 0; text-ali=
+gn: left; vertical-align: top;">
+                                            <td height=3D"25px" style=3D"fo=
+nt-size:25px;line-height:25px;">&nbsp;</td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                      <table style=3D"width:100%;">
+                                      <tr>
+                                        <td>
+                                          <p style=3D"color: #0a0a0a; font-=
+family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: normal;=
+  margin: 0; padding: 0; text-align: center; padding-left:30px; padding-rig=
+ht:30px;">
+                                            Record locator: <b>WWFKDI  </b>
+                                          </p>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                   =20
+                                    <table style=3D"border-collapse: collap=
+se; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; w=
+idth: 100%;">
+                                      <tbody>
+                                        <tr style=3D"padding: 0; text-align=
+: left; vertical-align: top;">
+                                          <td>
+                                            <p style=3D"color: #0a0a0a; fon=
+t-family: Helvetica, Arial, sans-serif; font-size: 15px; font-weight: norma=
+l;  margin: 0; padding: 0; text-align: left; padding-left:30px; padding-rig=
+ht:30px;">
+                                               =20
+                                            </p>
+                                            </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                   =20
+                                    <table class=3D"spacer" style=3D"border=
+-collapse: collapse; border-spacing: 0; padding: 0; text-align: left; verti=
+cal-align: top; width: 100%;">
+                                      <tbody>
+                                        <tr style=3D"padding: 0; text-align=
+: left; vertical-align: top;">
+                                          <td height=3D"20px" style=3D"font=
+-size:20px;line-height:20px;">&nbsp;</td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                    <center style=3D"min-width: 532px; widt=
+h: 100%;">
+                                      <table class=3D"button" style=3D"bord=
+er-collapse: collapse; border-spacing: 0; margin: 0 0 16px 0; padding: 0; t=
+ext-align: left; vertical-align: top; width: auto !important;">
+                                        <tbody>
+                                          <tr style=3D"padding: 0; text-ali=
+gn: left; vertical-align: top;">
+                                            <td>
+                                              <table style=3D"border-collap=
+se: collapse; border-spacing: 0; padding: 0; text-align: left; vertical-ali=
+gn: top; width: 100%;">
+                                                <tbody>
+                                                  <tr style=3D"padding: 0; =
+text-align: left; vertical-align: top;">
+                                                    <td>
+
+                                                                           =
+         <a style=3D"border: 1px solid #0061ab; border-radius: 3px; color: =
+#0061ab; display: inline-block; font-family: Helvetica, Arial, sans-serif; =
+font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0; padding:=
+ 6px 0px 6px 0px; text-align: left; text-decoration: none;"
+                                                        href=3D"https://www=
+.aa.com/reservation/view/find-your-trip?firstName=3DBob&lastName=3DCHAPPE=
+LL&recordLocator=3DWWFKDI&ntf=3Dapr,tkt,eml,cta">&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;
+                                                        Manage Your Trip
+                                                        &nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;</a>
+                                                                           =
+   </td>
+                                                  </tr>
+                                                </tbody>
+                                              </table>
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                      <center style=3D"min-width: 532px; wi=
+dth: 100%;">
+                                      </center>
+                                    </center>
+                                   =20
+                                  </th>
+                                </tr>
+                              </tbody>
+                            </table>
+                           =20
+                           =20
+                           =20
+                           =20
+                            <hr class=3D"black-solid" style=3D"Margin: 20px=
+ auto; border-bottom: 1px solid #9da6ab; border-color: #9da6ab; border-left=
+: 0; border-right: 0; border-top: 0; clear: both; height: 0; margin: 15px a=
+uto 35px auto; max-width: 600px;">
+
+                           =20
+
+                           =20
+                           =20
+                            <table class=3D"row" style=3D"border-collapse: =
+collapse; border-spacing: 0; display: table; padding: 0; position: relative=
+; text-align: left; vertical-align: top; width: 100%;">
+                              <tbody>
+                                <tr style=3D"padding: 0; text-align: left; =
+vertical-align: top;">
+                                  <td style=3D"padding-left:30px;">
+                                    <p style=3D"Margin: 0; Margin-bottom: 1=
+0px; color: #0061ab; font-family: Helvetica, Arial, sans-serif; font-size: =
+21px; font-weight: normal; line-height: 16px; margin: 0; margin-bottom: 10p=
+x; padding: 0; text-align: left;" class=3D"font-style-blueish">
+                                      Saturday, June 1, 2019</p>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+
+
+                           =20
+                           =20
+                           =20
+
+                            <table class=3D"spacer" style=3D"border-collaps=
+e: collapse; border-spacing: 0; padding: 0; text-align: left; vertical-alig=
+n: top; width: 100%;">
+                              <tbody>
+                                <tr style=3D"padding: 0; text-align: left; =
+vertical-align: top;">
+                                  <td height=3D"16px" style=3D"font-size:16=
+px;line-height:16px;">&nbsp;</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                           =20
+                            <table class=3D"row" style=3D"border-collapse: =
+collapse; border-spacing: 0; display: table; padding: 0; position: relative=
+; text-align: left; vertical-align: top; width: 100%;">
+                              <tbody>
+                                <tr style=3D"padding: 0; text-align: left; =
+vertical-align: top;" valign=3D"top">
+                                  <td class=3D"small-12 large-8 first" styl=
+e=3D"padding-left:30px; width:350px">
+                                    <table style=3D"border-collapse: collap=
+se; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; w=
+idth: 100%;">
+                                      <tbody>
+                                        <tr style=3D"padding: 0; text-align=
+: left; vertical-align: top;">
+                                          <td>
+                                           =20
+                                            <table style=3D"border-collapse=
+: collapse; border-spacing: 0; padding: 0; text-align: left; vertical-align=
+: top;">
+                                              <tbody>
+                                                <tr style=3D"padding: 0; te=
+xt-align: left; vertical-align: top;">
+                                                  <td style=3D"font-size:16=
+px; color:#36495A;width:40%">DFW&nbsp;</td>
+                                                  <td rowspan=3D"2">
+                                                    <table class=3D"spacer"=
+ style=3D"border-collapse: collapse; border-spacing: 0; padding: 0; text-al=
+ign: left; vertical-align: top; width: 100%;">
+                                                      <tbody>
+                                                        <tr style=3D"paddin=
+g: 0; text-align: left; vertical-align: top;">
+                                                          <td height=3D"16p=
+x" style=3D"font-size:16px;line-height:16px;">&nbsp;</td>
+                                                        </tr>
+                                                      </tbody>
+                                                    </table>
+
+                                                    <img src=3D"http://imag=
+es.appriss.com/amair/email/Icon-Arrow.png" style=3D"-ms-interpolation-mode:=
+ bicubic; clear: both; display: block; max-width: 100%; outline: none; text=
+-decoration: none; width: auto;">
+
+                                                    </td>
+                                                  <td rowspan=3D"2">
+                                                    <table class=3D"spacer"=
+ style=3D"border-collapse: collapse; border-spacing: 0; padding: 0; text-al=
+ign: left; vertical-align: top; width: 100%;">
+                                                      <tbody>
+                                                        <tr style=3D"paddin=
+g: 0; text-align: left; vertical-align: top;">
+                                                          <td width=3D"10px=
+">&nbsp;</td>
+                                                        </tr>
+                                                      </tbody>
+                                                    </table>
+                                                  </td>
+                                                  <td style=3D"font-size:16=
+px; color:#36495A;width:40%">ANC&nbsp;</td>
+                                                </tr>
+                                                <tr style=3D"padding: 0; te=
+xt-align: left; vertical-align: top;">
+                                                  <td style=3D"font-size:27=
+px; color:#1e1e1e;width:150px">
+                                                    <table class=3D"spacer"=
+ style=3D"border-collapse: collapse; border-spacing: 0; padding: 0; text-al=
+ign: left; vertical-align: top; width: 100%;">
+                                                      <tbody>
+                                                        <tr style=3D"paddin=
+g: 0; text-align: left; vertical-align: top;">
+                                                          <td height=3D"5px=
+" style=3D"font-size:5px;line-height:5px;">&nbsp;</td>
+                                                        </tr>
+                                                      </tbody>
+                                                    </table>
+                                                    <span style=3D"font-siz=
+e:27px; color:#1E1E1E">
+                                                    3:10</span>&nbsp;<span =
+style=3D"font-size:16px; color:#36495A">PM</span>
+                                                  </td>
+                                                  <td style=3D"font-size:27=
+px;color:#1e1e1e;">
+                                                    <table class=3D"spacer"=
+ style=3D"border-collapse: collapse; border-spacing: 0; padding: 0; text-al=
+ign: left; vertical-align: top; width: 100%;">
+                                                      <tbody>
+                                                        <tr style=3D"paddin=
+g: 0; text-align: left; vertical-align: top;">
+                                                          <td height=3D"5px=
+" style=3D"font-size:5px;line-height:5px;">&nbsp;</td>
+                                                        </tr>
+                                                      </tbody>
+                                                    </table>
+                                                    <span style=3D"font-siz=
+e:27px; color:#1E1E1E">7:00</span>&nbsp;<span style=3D"font-size:16px; colo=
+r:#36495A">PM</span>
+
+                                                    </td>
+                                                </tr>
+                                                <tr style=3D"padding: 0; te=
+xt-align: left; vertical-align: top;">
+                                                  <td colspan=3D"3" style=
+=3D"font-size:12px; color: #627a88;">
+                                                    <table class=3D"spacer"=
+ style=3D"border-collapse: collapse; border-spacing: 0; padding: 0; text-al=
+ign: left; vertical-align: top; width: 100%;">
+                                                      <tbody>
+                                                        <tr style=3D"paddin=
+g: 0; text-align: left; vertical-align: top;">
+                                                          <td height=3D"0px=
+" style=3D"font-size:0px;line-height:0px;">&nbsp;</td>
+                                                        </tr>
+                                                      </tbody>
+                                                    </table>
+                                                    Dallas/Fort Worth
+                                                    </td>
+                                                    <td style=3D"font-size:=
+12px; color: #627a88;">
+                                                    <table class=3D"spacer"=
+ style=3D"border-collapse: collapse; border-spacing: 0; padding: 0; text-al=
+ign: left; vertical-align: top; width: 100%;">
+                                                      <tbody>
+                                                        <tr style=3D"paddin=
+g: 0; text-align: left; vertical-align: top;">
+                                                          <td height=3D"0px=
+" style=3D"font-size:0px;line-height:0px;">&nbsp;</td>
+                                                        </tr>
+                                                      </tbody>
+                                                    </table>
+                                                    Anchorage
+                                                    </td>
+                                                </tr>
+                                              </tbody>
+                                            </table>
+                                           =20
+                                          </td>
+                                        </tr>
+                                        <tr style=3D"padding: 0; text-align=
+: left; vertical-align: top;">
+                                          <td colspan=3D"3" height=3D"5px" =
+style=3D"font-size:5px;line-height:5px;">&nbsp;</td>
+                                        </tr>
+                                        <tr style=3D"vertical-align:top;">
+                                          <td colspan=3D"3" style=3D"vertic=
+al-align:top;">
+                                           =20
+                                            <p style=3D"font-size:14px; col=
+or:#36495A; margin:0; padding:0;">
+                                              American Airlines 399
+                                             =20
+                                             =20
+                                              =20
+                                              =20
+
+                                              =20
+                                                  <br /><span style=3D"font=
+-size:12px; color:#627a88;">
+                                                   =20
+                                                   =20
+                                                  </span>
+                                             =20
+                                            </p>
+                                           =20
+                                            =20
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </td>
+                                  <td class=3D" small-12 large-4 last" styl=
+e=3D"padding-left:30px;vertical-align: top; width:190px;">
+                                    <table style=3D"border-collapse: collap=
+se; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; w=
+idth: 100%;">
+                                      <tbody>
+                                        <tr style=3D"padding: 0; text-align=
+: left; vertical-align: top;">
+                                          <td>
+
+                                            <table style=3D"#0a0a0a; font-f=
+amily: Helvetica, Arial, sans-serif; font-size: 14px; font-weight: normal;"=
+>
+                                              <tr>
+                                                <td>Seats:</td>
+                                                <td>
+                                                 =20
+                                                   =20
+                                                   =20
+                                                     =20
+                                                       =20
+                                                       =20
+                                                         =20
+                                                            <a href=3D"http=
+s://www.aa.com/reservation/view/find-your-trip?firstName=3DBob&lastName=
+=3DExample&recordLocator=3DWWFKDI&ntf=3Dapr,tkt,eml,cta" class=3D"undeline=
+d-link" style=3D"Margin: 0; color: #2199e8; font-family: Helvetica, Arial, =
+sans-serif; font-weight: normal;margin: 0; padding: 0; text-align: left; te=
+xt-decoration: underline;">
+                                                              9C =20
+                                                            </a>
+                                                         =20
+                                                        =20
+                                                   =20
+                                                 =20
+                                                </td>
+                                              </tr>
+                                              <tr>
+                                                <td>Class:</td>
+                                                <td>Economy
+                                               =20
+                                                  (M)
+                                               =20
+                                                </td>
+                                              </tr>
+                                              <tr>
+                                                <td>Meals:</td>
+                                                <td>Food For Purchase</td>
+                                              </tr>
+                                            </table>
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </td>
+                                </tr>
+                               =20
+                                =20
+                                    <tr style=3D"vertical-align: top;">
+                                      <tr style=3D"padding: 0; text-align: =
+left; vertical-align: top;">
+                                        <td height=3D"10px" style=3D"font-s=
+ize:19px;line-height:19px;">&nbsp;</td>
+                                      </tr>
+                                      <td colspan=3D"3" style=3D"padding:0p=
+x 0px 0px 30px;">
+                                        <a style=3D"color: #0078d2; text-de=
+coration:none;" href=3D"https://www.aa.com/i18n/travel-info/experience/ente=
+rtainment/inflight-entertainment.jsp"> Free entertainment with the American=
+ app &#187;</a>
+                                      </td>
+                                      <tr style=3D"padding: 0; text-align: =
+left; vertical-align: top;">
+                                        <td height=3D"10px" style=3D"font-s=
+ize:13px;line-height:13px;">&nbsp;</td>
+                                      </tr>
+                                    </tr>
+                                   =20
+                               =20
+                               =20
+                              </tbody>
+                            </table>
+                           =20
+                                 =20
+                           =20
+                           =20
+                           =20
+                           =20
+                           =20
+
+                           =20
+                                <hr class=3D"grey-dashed" style=3D"border-b=
+ottom: 1px solid #cacaca; border-left: 0; border-right: 0; border-style: da=
+shed; border-top: 0; clear: both; height: 0; margin: 10px auto; max-width: =
+600px;">
+                                <table class=3D"spacer" style=3D"border-col=
+lapse: collapse; border-spacing: 0; padding: 0; text-align: left; vertical-=
+align: top; width: 100%;">
+                                  <tbody>
+                                    <tr style=3D"padding: 0; text-align: le=
+ft; vertical-align: top;">
+                                      <td height=3D"25px" style=3D"font-siz=
+e:25px;line-height:25px;">&nbsp;</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                           =20
+                           =20
+                            <table class=3D"row" style=3D"border-collapse: =
+collapse; border-spacing: 0; display: table; padding: 0; position: relative=
+; text-align: left; vertical-align: top; width: 100%;">
+                              <tbody>
+                                <tr style=3D"padding: 0; text-align: left; =
+vertical-align: top;">
+                                  <td style=3D"padding-left:30px;">
+                                    <p style=3D"Margin: 0; Margin-bottom: 1=
+0px; color: #0061ab; font-family: Helvetica, Arial, sans-serif; font-size: =
+21px; font-weight: normal; line-height: 16px; margin: 0; margin-bottom: 10p=
+x; padding: 0; text-align: left;" class=3D"font-style-blueish">
+                                      Thursday, June 6, 2019</p>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+
+
+                           =20
+                           =20
+                           =20
+
+                            <table class=3D"spacer" style=3D"border-collaps=
+e: collapse; border-spacing: 0; padding: 0; text-align: left; vertical-alig=
+n: top; width: 100%;">
+                              <tbody>
+                                <tr style=3D"padding: 0; text-align: left; =
+vertical-align: top;">
+                                  <td height=3D"16px" style=3D"font-size:16=
+px;line-height:16px;">&nbsp;</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                           =20
+                            <table class=3D"row" style=3D"border-collapse: =
+collapse; border-spacing: 0; display: table; padding: 0; position: relative=
+; text-align: left; vertical-align: top; width: 100%;">
+                              <tbody>
+                                <tr style=3D"padding: 0; text-align: left; =
+vertical-align: top;" valign=3D"top">
+                                  <td class=3D"small-12 large-8 first" styl=
+e=3D"padding-left:30px; width:350px">
+                                    <table style=3D"border-collapse: collap=
+se; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; w=
+idth: 100%;">
+                                      <tbody>
+                                        <tr style=3D"padding: 0; text-align=
+: left; vertical-align: top;">
+                                          <td>
+                                           =20
+                                            <table style=3D"border-collapse=
+: collapse; border-spacing: 0; padding: 0; text-align: left; vertical-align=
+: top;">
+                                              <tbody>
+                                                <tr style=3D"padding: 0; te=
+xt-align: left; vertical-align: top;">
+                                                  <td style=3D"font-size:16=
+px; color:#36495A;width:40%">ANC&nbsp;</td>
+                                                  <td rowspan=3D"2">
+                                                    <table class=3D"spacer"=
+ style=3D"border-collapse: collapse; border-spacing: 0; padding: 0; text-al=
+ign: left; vertical-align: top; width: 100%;">
+                                                      <tbody>
+                                                        <tr style=3D"paddin=
+g: 0; text-align: left; vertical-align: top;">
+                                                          <td height=3D"16p=
+x" style=3D"font-size:16px;line-height:16px;">&nbsp;</td>
+                                                        </tr>
+                                                      </tbody>
+                                                    </table>
+
+                                                    <img src=3D"http://imag=
+es.appriss.com/amair/email/Icon-Arrow.png" style=3D"-ms-interpolation-mode:=
+ bicubic; clear: both; display: block; max-width: 100%; outline: none; text=
+-decoration: none; width: auto;">
+
+                                                    </td>
+                                                  <td rowspan=3D"2">
+                                                    <table class=3D"spacer"=
+ style=3D"border-collapse: collapse; border-spacing: 0; padding: 0; text-al=
+ign: left; vertical-align: top; width: 100%;">
+                                                      <tbody>
+                                                        <tr style=3D"paddin=
+g: 0; text-align: left; vertical-align: top;">
+                                                          <td width=3D"10px=
+">&nbsp;</td>
+                                                        </tr>
+                                                      </tbody>
+                                                    </table>
+                                                  </td>
+                                                  <td style=3D"font-size:16=
+px; color:#36495A;width:40%">DFW&nbsp;</td>
+                                                </tr>
+                                                <tr style=3D"padding: 0; te=
+xt-align: left; vertical-align: top;">
+                                                  <td style=3D"font-size:27=
+px; color:#1e1e1e;width:150px">
+                                                    <table class=3D"spacer"=
+ style=3D"border-collapse: collapse; border-spacing: 0; padding: 0; text-al=
+ign: left; vertical-align: top; width: 100%;">
+                                                      <tbody>
+                                                        <tr style=3D"paddin=
+g: 0; text-align: left; vertical-align: top;">
+                                                          <td height=3D"5px=
+" style=3D"font-size:5px;line-height:5px;">&nbsp;</td>
+                                                        </tr>
+                                                      </tbody>
+                                                    </table>
+                                                    <span style=3D"font-siz=
+e:27px; color:#1E1E1E">
+                                                    8:15</span>&nbsp;<span =
+style=3D"font-size:16px; color:#36495A">PM</span>
+                                                  </td>
+                                                  <td style=3D"font-size:27=
+px;color:#1e1e1e;">
+                                                    <table class=3D"spacer"=
+ style=3D"border-collapse: collapse; border-spacing: 0; padding: 0; text-al=
+ign: left; vertical-align: top; width: 100%;">
+                                                      <tbody>
+                                                        <tr style=3D"paddin=
+g: 0; text-align: left; vertical-align: top;">
+                                                          <td height=3D"5px=
+" style=3D"font-size:5px;line-height:5px;">&nbsp;</td>
+                                                        </tr>
+                                                      </tbody>
+                                                    </table>
+                                                    <span style=3D"font-siz=
+e:27px; color:#1E1E1E">5:26</span>&nbsp;<span style=3D"font-size:16px; colo=
+r:#36495A">AM</span>
+
+                                                    </td>
+                                                </tr>
+                                                <tr style=3D"padding: 0; te=
+xt-align: left; vertical-align: top;">
+                                                  <td colspan=3D"3" style=
+=3D"font-size:12px; color: #627a88;">
+                                                    <table class=3D"spacer"=
+ style=3D"border-collapse: collapse; border-spacing: 0; padding: 0; text-al=
+ign: left; vertical-align: top; width: 100%;">
+                                                      <tbody>
+                                                        <tr style=3D"paddin=
+g: 0; text-align: left; vertical-align: top;">
+                                                          <td height=3D"0px=
+" style=3D"font-size:0px;line-height:0px;">&nbsp;</td>
+                                                        </tr>
+                                                      </tbody>
+                                                    </table>
+                                                    Anchorage
+                                                    </td>
+                                                    <td style=3D"font-size:=
+12px; color: #627a88;">
+                                                    <table class=3D"spacer"=
+ style=3D"border-collapse: collapse; border-spacing: 0; padding: 0; text-al=
+ign: left; vertical-align: top; width: 100%;">
+                                                      <tbody>
+                                                        <tr style=3D"paddin=
+g: 0; text-align: left; vertical-align: top;">
+                                                          <td height=3D"0px=
+" style=3D"font-size:0px;line-height:0px;">&nbsp;</td>
+                                                        </tr>
+                                                      </tbody>
+                                                    </table>
+                                                    Dallas/Fort Worth
+                                                    </td>
+                                                </tr>
+                                              </tbody>
+                                            </table>
+                                           =20
+                                          </td>
+                                        </tr>
+                                        <tr style=3D"padding: 0; text-align=
+: left; vertical-align: top;">
+                                          <td colspan=3D"3" height=3D"5px" =
+style=3D"font-size:5px;line-height:5px;">&nbsp;</td>
+                                        </tr>
+                                        <tr style=3D"vertical-align:top;">
+                                          <td colspan=3D"3" style=3D"vertic=
+al-align:top;">
+                                           =20
+                                            <p style=3D"font-size:14px; col=
+or:#36495A; margin:0; padding:0;">
+                                              American Airlines 399
+                                             =20
+                                             =20
+                                              =20
+                                              =20
+
+                                              =20
+                                                  <br /><span style=3D"font=
+-size:12px; color:#627a88;">
+                                                   =20
+                                                   =20
+                                                  </span>
+                                             =20
+                                            </p>
+                                           =20
+                                            =20
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </td>
+                                  <td class=3D" small-12 large-4 last" styl=
+e=3D"padding-left:30px;vertical-align: top; width:190px;">
+                                    <table style=3D"border-collapse: collap=
+se; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; w=
+idth: 100%;">
+                                      <tbody>
+                                        <tr style=3D"padding: 0; text-align=
+: left; vertical-align: top;">
+                                          <td>
+
+                                            <table style=3D"#0a0a0a; font-f=
+amily: Helvetica, Arial, sans-serif; font-size: 14px; font-weight: normal;"=
+>
+                                              <tr>
+                                                <td>Seats:</td>
+                                                <td>
+                                                 =20
+                                                   =20
+                                                   =20
+                                                     =20
+                                                       =20
+                                                       =20
+                                                         =20
+                                                            <a href=3D"http=
+s://www.aa.com/reservation/view/find-your-trip?firstName=3DBob&lastName=
+=3DExample&recordLocator=3DWWFKDI&ntf=3Dapr,tkt,eml,cta" class=3D"undeline=
+d-link" style=3D"Margin: 0; color: #2199e8; font-family: Helvetica, Arial, =
+sans-serif; font-weight: normal;margin: 0; padding: 0; text-align: left; te=
+xt-decoration: underline;">
+                                                              20D=20
+                                                            </a>
+                                                         =20
+                                                        =20
+                                                   =20
+                                                 =20
+                                                </td>
+                                              </tr>
+                                              <tr>
+                                                <td>Class:</td>
+                                                <td>Economy
+                                               =20
+                                                  (N)
+                                               =20
+                                                </td>
+                                              </tr>
+                                              <tr>
+                                                <td>Meals:</td>
+                                                <td>Food For Purchase</td>
+                                              </tr>
+                                            </table>
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </td>
+                                </tr>
+                               =20
+                                =20
+                               =20
+                              </tbody>
+                            </table>
+                           =20
+                                 =20
+                           =20
+                           =20
+                           =20
+                           =20
+                           =20
+                           =20
+
+
+                           =20
+
+
+                      <hr class=3D"black-solid" style=3D"Margin: 20px auto;=
+ border-bottom: 1px solid #9da6ab; border-color: #9da6ab; border-left: 0; b=
+order-right: 0; border-top: 0; clear: both; height: 0; margin: 20px auto 0 =
+auto; max-width: 600px;">
+
+                   =20
+                    <table class=3D"spacer" style=3D"border-collapse: colla=
+pse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; =
+width: 100%;">
+                      <tbody>
+                        <tr style=3D"padding: 0; text-align: left; vertical=
+-align: top;">
+                          <td height=3D"10px" style=3D"font-size:10px;line-=
+height:10px;">&nbsp;</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    =20
+                    <table class=3D"row" style=3D"border-collapse: collapse=
+; border-spacing: 0; display: table; padding: 0; position: relative; text-a=
+lign: left; vertical-align: top; width: 100%;">
+                      <tbody>
+                       =20
+                       =20
+                               =20
+                         =20
+                          <tr>
+                            <td>
+                              <table class=3D"spacer" style=3D"border-colla=
+pse: collapse; border-spacing: 0; padding: 0; text-align: left; vertical-al=
+ign: top; width: 100%;">
+                                <tbody>
+                                  <tr style=3D"padding: 0; text-align: left=
+; vertical-align: top;">
+                                    <td height=3D"0px" style=3D"font-size:0=
+px;line-height:0px;">&nbsp;</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                          <tr>
+                                  <td class=3D"small-12 large-8 first" styl=
+e=3D"Margin: 0; color: #0061AB; font-family: Helvetica, Arial, sans-serif; =
+font-size: 21px; font-weight: normal; line-height: 21px; margin: 0; padding=
+-top: 20px; padding-bottom:0; padding-left: 30px; padding-right: 30px; text=
+-align: left; width: 200px; vertical-align:top">
+                                    <span style=3D"color: #0061AB;">Bob C=
+happell</span>
+                                  </td>
+                                  <td class=3D"small-12 large-4 last" style=
+=3D"padding-top: 15px;font-size: 14px; font-family: Helvetica, Arial, sans-=
+serif; color: #627A88; text-align:left; padding-left: 30px;">
+
+                                   =20
+                                     =20
+                                        =20
+                                            <a href=3D"https://creditcards.=
+aa.com/citi-platinum-card-american-airlines-etdsmember" style=3D"font-famil=
+y: arial,sans-serif; font-size: 14px; font-weight: bold; color: #0078D2; te=
+xt-decoration: none;" urlId=3D"3488756" reportname=3D"Prefered Credit Card-=
+ICON" target=3D"_blank">
+                                                                  <img src=
+=3D"http://images.appriss.com/amair/email/citi_plat_20190404.jpg" alt=3D"" =
+/></a>
+                                                               =20
+                                       =20
+                                   =20
+                                   =20
+                                   =20
+                                    AAdvantage # 73N5LD0
+                                   =20
+                                   =20
+                                    <table class=3D"spacer" style=3D"border=
+-collapse: collapse; border-spacing: 0; padding: 0; text-align: left; verti=
+cal-align: top; width: 100%;">
+                                      <tbody>
+                                        <tr style=3D"padding: 0; text-align=
+: left; vertical-align: top;">
+                                          <td height=3D"10px" style=3D"font=
+-size:10px;line-height:10px;">&nbsp;</td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                    <table style=3D"margin:0; padding:0;" c=
+ellpadding=3D"0" cellspacing=3D"0">
+                                      <tr>
+                                        <td>Ticket # 0012348668673</td>
+                                      </tr>
+                                    </table>
+                                   =20
+                                  </td>
+
+                                </tr>
+                               =20
+                         =20
+                       =20
+                      </tbody>
+                    </table>
+                    <table class=3D"spacer" style=3D"border-collapse: colla=
+pse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; =
+width: 100%;">
+                      <tbody>
+                        <tr style=3D"padding: 0; text-align: left; vertical=
+-align: top;">
+                          <td height=3D"10px" style=3D"font-size:10px;line-=
+height:10px;">&nbsp;</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <hr class=3D"black-solid" style=3D"Margin: 20px auto; b=
+order-bottom: 1px solid #9da6ab; border-color: #9da6ab; border-left: 0; bor=
+der-right: 0; border-top: 0; clear: both; height: 0; margin: 20px auto; max=
+-width: 700px;">
+                    =20
+                   =20
+                    <table class=3D"spacer" style=3D"border-collapse: colla=
+pse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; =
+width: 100%;">
+                      <tbody>
+                        <tr style=3D"padding: 0; text-align: left; vertical=
+-align: top;">
+                          <td height=3D"10px" style=3D"font-size:10px;line-=
+height:10px;">&nbsp;</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                   =20
+                    <table style=3D"margin:0; padding:0 30px;text-align: le=
+ft;" cellpadding=3D"0" cellspacing=3D"0">
+                      <tr>
+                        <td style=3D"font-family: Helvetica, Arial, sans-se=
+rif; font-size:27px; line-height:27px; color:#0061AB;">
+                          Your trip receipt
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <table class=3D"spacer" style=3D"border-collapse:=
+ collapse; border-spacing: 0; padding: 0; text-align: left; vertical-align:=
+ top; width: 100%;">
+                            <tbody>
+                              <tr style=3D"padding: 0; text-align: left; ve=
+rtical-align: top;">
+                                <td height=3D"10px" style=3D"font-size:10px=
+;line-height:10px;">&nbsp;</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                    <table class=3D"spacer" style=3D"border-collapse: colla=
+pse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; =
+width: 100%;">
+                      <tbody>
+                        <tr style=3D"padding: 0; text-align: left; vertical=
+-align: top;">
+                          <td height=3D"10px" style=3D"font-size:10px;line-=
+height:10px;">&nbsp;</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <table style=3D"margin:0; padding:0 30px;text-align: le=
+ft;" cellpadding=3D"0" cellspacing=3D"0">
+                      <tr>
+                        <td>
+                         =20
+                            <img style=3D"display:inline;" src=3D"http://im=
+ages.appriss.com/amair/email/icon-payment.png" />&nbsp;
+                         =20
+                        </td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td style=3D"font-family: Helvetica, Arial, sans-se=
+rif; font-size:14px; color:#627A88;">
+                          Universal Air Travel Card XXXXXXXXXXXXX655
+                        </td>
+                      </tr>
+                    </table>
+                    <table class=3D"spacer" style=3D"border-collapse: colla=
+pse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; =
+width: 100%;">
+                      <tbody>
+                        <tr style=3D"padding: 0; text-align: left; vertical=
+-align: top;">
+                          <td height=3D"30px" style=3D"font-size:30px;line-=
+height:30px;">&nbsp;</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                   =20
+                    <table border=3D"0" style=3D"margin:0; padding:0 30px;t=
+ext-align: left;width:100%;" cellpadding=3D"0" cellspacing=3D"0">
+                   =20
+                   =20
+                   =20
+                     =20
+                   =20
+                   =20
+                      <tr>
+                        <td style=3D"font-family: Helvetica, Arial, sans-se=
+rif; font-size:15px; color:#36495A;" colspan=3D"3">
+                          <span style=3D"font-family: Helvetica, Arial, san=
+s-serif; font-size:16px; color:#030304; font-weight: 900; font-style: itali=
+c;">
+                            Bob Example
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                            <table class=3D"spacer" style=3D"border-collaps=
+e: collapse; border-spacing: 0; padding: 0; text-align: left; vertical-alig=
+n: top; width: 100%;">
+                              <tbody>
+                                <tr style=3D"padding: 0; text-align: left; =
+vertical-align: top;">
+                                  <td height=3D"10px" style=3D"font-size:10=
+px;line-height:10px;">&nbsp;</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </td>
+                        </tr>
+                           =20
+                             =20
+                              =20
+                             =20
+                              <tr>
+                               =20
+                                  <td width=3D"55%" style=3D"width:55%;font=
+-size:14px; color:#627A88;padding-right:0; margin-right:0; text-align:left;=
+">
+                                   =20
+                                      <span>
+                                   =20
+                                        FARE-USD
+                                      </span>
+                                  </td>
+                               =20
+                               =20
+                                <td style=3D"text-align:right;font-size:14p=
+x; color:#627A88;padding:0;margin:0;">
+                                 =20
+                                    <span>
+                                 =20
+                                   =20
+                                   =20
+                                    $=20
+                                        1011.
+                                    </span>
+                                </td>
+                                <td width=3D"60px" style=3D"width:60px;min-=
+width:60px;max-width:60px;width:60px;text-align:left;font-size:14px; color:=
+#627A88;padding:0;margin:0;">
+                                 =20
+                                    <span>
+                                 =20
+                                    49
+                                  </span>
+                                </td>
+                               =20
+
+                              </tr>
+                              <tr>
+                                <td colspan=3D"3">
+                                  <table class=3D"spacer" style=3D"border-c=
+ollapse: collapse; border-spacing: 0; padding: 0; text-align: left; vertica=
+l-align: top; width: 100%;">
+                                    <tbody>
+                                      <tr style=3D"padding: 0; text-align: =
+left; vertical-align: top;">
+                                        <td height=3D"5px" style=3D"font-si=
+ze:5px;line-height:5px;">&nbsp;</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </td>
+                              </tr>
+                              =20
+                              =20
+                             =20
+                              =20
+                             =20
+                              <tr>
+                               =20
+                                  <td width=3D"55%" style=3D"width:55%;font=
+-size:14px; color:#627A88;padding-right:0; margin-right:0; text-align:left;=
+">
+                                   =20
+                                      <span>
+                                   =20
+                                        TAXES AND CARRIER-IMPOSED FEES
+                                      </span>
+                                  </td>
+                               =20
+                               =20
+                                <td style=3D"text-align:right;font-size:14p=
+x; color:#627A88;padding:0;margin:0;">
+                                 =20
+                                    <span>
+                                 =20
+                                   =20
+                                   =20
+                                    $=20
+                                        90.
+                                    </span>
+                                </td>
+                                <td width=3D"60px" style=3D"width:60px;min-=
+width:60px;max-width:60px;width:60px;text-align:left;font-size:14px; color:=
+#627A88;padding:0;margin:0;">
+                                 =20
+                                    <span>
+                                 =20
+                                    21
+                                  </span>
+                                </td>
+                               =20
+
+                              </tr>
+                              <tr>
+                                <td colspan=3D"3">
+                                  <table class=3D"spacer" style=3D"border-c=
+ollapse: collapse; border-spacing: 0; padding: 0; text-align: left; vertica=
+l-align: top; width: 100%;">
+                                    <tbody>
+                                      <tr style=3D"padding: 0; text-align: =
+left; vertical-align: top;">
+                                        <td height=3D"5px" style=3D"font-si=
+ze:5px;line-height:5px;">&nbsp;</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </td>
+                              </tr>
+                              =20
+                              =20
+                             =20
+                              =20
+                             =20
+                              <tr>
+                               =20
+                                  <td width=3D"55%" style=3D"width:55%;font=
+-size:14px; color:#627A88;padding-right:0; margin-right:0; text-align:left;=
+">
+                                   =20
+                                      <span style=3D"font-weight: bolder;">
+                                   =20
+                                        TICKET TOTAL
+                                      </span>
+                                  </td>
+                               =20
+                               =20
+                                <td style=3D"text-align:right;font-size:14p=
+x; color:#627A88;padding:0;margin:0;">
+                                 =20
+                                    <span style=3D"font-weight: bolder;">
+                                 =20
+                                   =20
+                                   =20
+                                    $=20
+                                        1101.
+                                    </span>
+                                </td>
+                                <td width=3D"60px" style=3D"width:60px;min-=
+width:60px;max-width:60px;width:60px;text-align:left;font-size:14px; color:=
+#627A88;padding:0;margin:0;">
+                                 =20
+                                    <span style=3D"font-weight: bolder;">
+                                 =20
+                                    70
+                                  </span>
+                                </td>
+                               =20
+
+                              </tr>
+                              <tr>
+                                <td colspan=3D"3">
+                                  <table class=3D"spacer" style=3D"border-c=
+ollapse: collapse; border-spacing: 0; padding: 0; text-align: left; vertica=
+l-align: top; width: 100%;">
+                                    <tbody>
+                                      <tr style=3D"padding: 0; text-align: =
+left; vertical-align: top;">
+                                        <td height=3D"5px" style=3D"font-si=
+ze:5px;line-height:5px;">&nbsp;</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </td>
+                              </tr>
+                              =20
+                              =20
+                             =20
+                   =20
+                   =20
+                   =20
+                   =20
+                  </td>
+                  </tr>
+                  </table>
+                    <table class=3D"spacer" style=3D"border-collapse: colla=
+pse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; =
+width: 100%;">
+                      <tbody>
+                        <tr style=3D"padding: 0; text-align: left; vertical=
+-align: top;">
+                          <td height=3D"20px" style=3D"font-size:20px;line-=
+height:20px;">&nbsp;</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <hr class=3D"black-solid" style=3D"Margin: 20px auto; b=
+order-bottom: 1px solid #9da6ab; border-color: #9da6ab; border-left: 0; bor=
+der-right: 0; border-top: 0; clear: both; height: 0; margin: 0px auto; max-=
+width: 700px;">
+
+                    <table class=3D"spacer" style=3D"border-collapse: colla=
+pse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; =
+width: 100%;">
+                      <tbody>
+                        <tr style=3D"padding: 0; text-align: left; vertical=
+-align: top;">
+                          <td height=3D"16px" style=3D"font-size:16px;line-=
+height:16px;">&nbsp;</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                   =20
+
+                   =20
+                   =20
+                    <table cellpadding=3D"0" cellspacing=3D"0">
+                        <tr>
+                            <td class=3D"grid-block" width=3D"600" >
+                                <table cellpadding=3D"0" cellspacing=3D"0" =
+bgcolor=3D"#ffffff">
+                                    <tr>
+                                        <td class=3D"row" style=3D"padding-=
+top: 8px; padding-bottom: 8px;">
+                                            <table cellpadding=3D"0" cellsp=
+acing=3D"0">
+                                               <tr>
+=09=09=09=09=09=09=09=09=09=09=09=09=09<td class=3D"section half" width=3D"=
+144" height=3D"auto" align=3D"center" valign=3D"middle" style=3D"font-famil=
+y: arial,sans-serif; font-size: 14px; color: #fff; background: #ffffff;">
+                                                         <a href=3D"http://=
+aa.appriss.com/marketing-api/icons/hotel" style=3D"font-family: arial,sans-=
+serif; font-size: 14px; font-weight: bold; color: #0078D2; padding-top: 5px=
+; text-decoration: none;" urlId=3D"3488755" reportname=3D"Book_a_hotel-ICON=
+" target=3D"_blank" frontuid=3D"5034258">
+                                                          <img src=3D"http:=
+//www.aa.com/content/images/email/-AirlineTriggers/OTAThankYou/icons/Hotel.=
+jpg" width=3D"95" alt=3D"Book a hotel" style=3D"display: block; border: 0; =
+padding-bottom: 5px;width:95px;" title=3D"Book a hotel"/>
+                                                        Hotel&nbsp;offers</=
+a>
+                                                    </td>
+=09=09=09=09=09=09=09=09=09=09=09=09=09<td class=3D"spacer" width=3D"8" sty=
+le=3D"font-size: 1px;">&nbsp;</td>
+                                                    <td class=3D"section ha=
+lf" width=3D"144" align=3D"center" valign=3D"middle" style=3D"font-family: =
+arial,sans-serif; font-size: 14px; color: #fff; background: #ffffff;">
+                                                        <a href=3D"http://a=
+a.appriss.com/marketing-api/icons/car?extra_params=3Dtrue&amp;pickUpPlace=
+=3DANC&amp;dropOffPlace=3DANC&amp;pickUpDate=3D06/01/2019&amp;pickUpTime=3D=
+1900&amp;dropOffDate=3D06/06/2019&amp;dropOffTime=3D1800&amp;airlineCode=3D=
+AA&amp;flightNumber=3D399&amp;page=3Dresults" style=3D"color: #0078D2; text=
+-decoration: none;" urlId=3D"3488754" reportname=3D"Book_a_car-ICON" target=
+=3D"_blank" frontuid=3D"5034259">
+                                                          <img src=3D"http:=
+//www.aa.com/content/images/email/-AirlineTriggers/OTAThankYou/icons/Car.jp=
+g" width=3D"95" alt=3D"Book a car" style=3D"display: block; border: 0; padd=
+ing-bottom: 5px; width:95px;" title=3D"Book a car" />
+                                                        <span style=3D"font=
+-family: arial,sans-serif; font-size: 14px; line-height: 16px; font-weight:=
+ bold; color: #0078D2; padding-top: 10px; text-decoration: none;">Car&nbsp;=
+rental&nbsp;offers</span></a>
+                                                       =20
+                                                    </td>
+                                                    <td class=3D"spacer" wi=
+dth=3D"8" style=3D"font-size: 1px;">&nbsp;</td>
+                                                    <td class=3D"section ha=
+lf" width=3D"144" height=3D"auto" align=3D"center" valign=3D"middle" style=
+=3D"font-family: arial,sans-serif; font-size: 14px; color: #fff; background=
+: #ffffff;">
+                                                       <a href=3D"http://aa=
+.appriss.com/marketing-api/icons/insurance" style=3D"font-family: arial,san=
+s-serif; font-size: 14px; font-weight: bold; color: #0078D2; padding-top: 5=
+px; text-decoration: none;" urlId=3D"3488756" reportname=3D"Trip_insurance-=
+ICON" target=3D"_blank" frontuid=3D"5034257">
+                                                          <img src=3D"http:=
+//www.aa.com/content/images/email/-AirlineTriggers/OTAThankYou/icons/Insura=
+nce.jpg" width=3D"95" alt=3D"Buy trip insurance" style=3D"display: block; b=
+order: 0; padding-bottom: 5px; width:95px;" title=3D"Buy trip insurance" />
+                                                        Buy&nbsp;trip&nbsp;=
+insurance</a>
+                                                    </td>
+                                                    <td class=3D"spacer" wi=
+dth=3D"8" style=3D"font-size: 1px;">&nbsp;</td>
+                                                    <td class=3D"section ha=
+lf" width=3D"144" height=3D"auto" align=3D"center" valign=3D"middle" style=
+=3D"font-family: arial,sans-serif; font-size: 14px; color: #fff; background=
+: #ffffff;">
+                                                        <a href=3D"http://a=
+a.appriss.com/marketing-api/icons/rideShare" style=3D"font-family: arial,sa=
+ns-serif; font-size: 14px; font-weight: bold; color: #0078D2; padding-top: =
+5px; text-decoration: none;" urlId=3D"3488757" reportname=3D"SuperShuttle-I=
+con" target=3D"_blank" frontuid=3D"5034256">
+                                                          <img src=3D"http:=
+//www.aa.com//content/images/email/-AirlineTriggers/OTAThankYou/icons/ride_=
+share.jpg" width=3D"95" alt=3D"SuperShuttle" style=3D"display: block; borde=
+r: 0; padding-bottom: 5px; width:95px;" title=3D"SuperShuttle" />
+                                                        SuperShuttle</a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                   =20
+                   =20
+                    =20
+
+                   =20
+                   =20
+                      <table class=3D"spacer">
+                        <tbody>
+                          <tr>
+                            <td height=3D"25px" style=3D"font-size:25px;lin=
+e-height:25px;">&#xA0;</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                     =20
+                      <table cellpadding=3D"0" cellspacing=3D"0">
+                        <tr>
+                            <td class=3D"grid-block" width=3D"600" >
+                      <table width=3D"100%" style=3D"width:100%;">
+                        <tr>
+                         =20
+                          <td class=3D"small-12 large-6" style=3D"padding-l=
+eft:0px; padding-right:0px;">
+                            <center>
+                                <a href=3D"http://aa.appriss.com/marketing-=
+api/live_links/TMPL1/1/cae7cce3-0fd0-48e8-bd3f-60100a5fbb73" target=3D"_bla=
+nk">
+                                        <img src=3D"http://aa.appriss.com/m=
+arketing-api/live_images/TMPL1/1/cae7cce3-0fd0-48e8-bd3f-60100a5fbb73" />
+                                </a>
+                            </center>
+                          </td>
+                         =20
+                          <td class=3D"small-12 large-6" style=3D"padding-l=
+eft:0px; padding-right:0px;">
+                            <center>
+                                <a href=3D"http://aa.appriss.com/marketing-=
+api/live_links/TMPL1/2/cae7cce3-0fd0-48e8-bd3f-60100a5fbb73" target=3D"_bla=
+nk">
+                                        <img src=3D"http://aa.appriss.com/m=
+arketing-api/live_images/TMPL1/2/cae7cce3-0fd0-48e8-bd3f-60100a5fbb73" />
+                                </a>
+                            </center>
+                          </td>
+                        </tr>
+                        <tr>
+                         =20
+                          <td class=3D"small-12 large-6" style=3D"padding-l=
+eft:0px; padding-right:0px;">
+                            <center>
+                              <a href=3D"http://aa.appriss.com/marketing-ap=
+i/live_links/TMPL1/3/cae7cce3-0fd0-48e8-bd3f-60100a5fbb73" target=3D"_blank=
+">
+                                      <img src=3D"http://aa.appriss.com/mar=
+keting-api/live_images/TMPL1/3/cae7cce3-0fd0-48e8-bd3f-60100a5fbb73" />
+                              </a>
+                            </center>
+                          </td>
+                         =20
+                          <td class=3D"small-12 large-6" style=3D"padding-l=
+eft:0px; padding-right:0px;">
+                            <center>
+                              <a href=3D"http://aa.appriss.com/marketing-ap=
+i/live_links/TMPL1/4/cae7cce3-0fd0-48e8-bd3f-60100a5fbb73" target=3D"_blank=
+">
+                                      <img src=3D"http://aa.appriss.com/mar=
+keting-api/live_images/TMPL1/4/cae7cce3-0fd0-48e8-bd3f-60100a5fbb73" />
+                              </a>
+                            </center>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+                   =20
+                    =20
+
+                   =20
+                    <table cellpadding=3D"0" cellspacing=3D"0">
+                      <tr>
+                          <td class=3D"grid-block" width=3D"600" >
+                    <table class=3D"spacer" style=3D"border-collapse: colla=
+pse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; =
+width: 100%;">
+                      <tbody>
+                        <tr style=3D"padding: 0; text-align: left; vertical=
+-align: top;">
+                          <td height=3D"20px" style=3D"font-size:20px;line-=
+height:20px;">&nbsp;</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <table class=3D"spacer" style=3D"border-collapse: colla=
+pse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top;"=
+>
+                      <tbody>
+                        <tr style=3D"padding: 0; text-align: left; vertical=
+-align: top;">
+                          <td height=3D"16px" style=3D"Margin: 0; color: #0=
+a0a0a; font-family: Helvetica, Arial, sans-serif; font-size: 16px; font-wei=
+ght: normal; line-height: 16px; margin: 0; padding: 0; text-align: left;">&=
+nbsp;</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <table style=3D"padding-left:0px; padding-right:0px; wi=
+dth:100%;">
+                        <tr>
+                            <td>
+                                <hr class=3D"black-solid" style=3D"border-b=
+ottom: 1px solid #cacaca; border-color: #9da6ab; border-left: 0; border-rig=
+ht: 0; border-top: 0; clear: both; height: 0; margin: 0; padding: 0;">
+                            </td>
+                        </tr>
+                      </table>
+                      <table class=3D"spacer" style=3D"border-collapse: col=
+lapse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top=
+; width: 100%;">
+                      <tbody>
+                        <tr style=3D"padding: 0; text-align: left; vertical=
+-align: top;">
+                          <td height=3D"20px" style=3D"font-size:20px;line-=
+height:20px;">&nbsp;</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <table style=3D"border-collapse: collapse; border-spaci=
+ng: 0; padding: 0; text-align: left; vertical-align: top;" width=3D"100%">
+                      <tbody>
+                        <tr style=3D"padding: 0; text-align: left; vertical=
+-align: top;">
+                          <td class=3D"text-center" style=3D"Margin: 0; col=
+or: #0078D2; font-family: Helvetica, Arial, sans-serif; font-size: 14px; fo=
+nt-weight: normal; line-height: 14px; margin: 0; padding: 0; text-align: ce=
+nter;">
+                            <center><a href=3D"https://www.aa.com/i18n/cust=
+omer-service/contact-american/american-customer-service.jsp" class=3D"undel=
+ined-link" style=3D"Margin: 0; color: #0078D2; font-family: Helvetica, Aria=
+l, sans-serif; font-weight: normal; line-height: 14px; margin: 0; padding: =
+0; text-align: left; text-decoration: underline;">Contact us</a>           =
+                 &nbsp;|&nbsp;
+                            <a href=3D"https://www.aa.com/i18n/customer-ser=
+vice/support/privacy-policy.jsp" class=3D"undelined-link" style=3D"Margin: =
+0; color: #0078D2; font-family: Helvetica, Arial, sans-serif; font-weight: =
+normal; line-height: 14px; margin: 0; padding: 0; text-align: left; text-de=
+coration: underline;">Privacy policy</a></center>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <table class=3D"spacer" style=3D"border-collapse: colla=
+pse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; =
+width: 100%;">
+                      <tbody>
+                        <tr style=3D"padding: 0; text-align: left; vertical=
+-align: top;">
+                          <td height=3D"20px" style=3D"font-size:20px;line-=
+height:20px;">&nbsp;</td>
+
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <center>
+                    <table style=3D"border-collapse: collapse; border-spaci=
+ng: 0; padding: 0; text-align: left; vertical-align: top; width:100%;">
+                      <tbody>
+                        <tr style=3D"padding: 0; text-align: left; vertical=
+-align: top;">
+                          <th class=3D"small-12 large-3" style=3D"Margin: 0=
+; color: #0a0a0a; font-family: Helvetica, Arial, sans-serif; font-size: 16p=
+x; font-weight: normal; line-height: 19px; margin: 0; padding: 0; padding-l=
+eft: 0px; padding-right: 0px; text-align: left; width: 129px;"></th>
+                          <th class=3D"small-12 large-6" style=3D"Margin: 0=
+; background-color: #e8edf0; color: #0a0a0a; font-family: Helvetica, Arial,=
+ sans-serif; font-size: 16px; font-weight: normal; line-height: 19px; margi=
+n: 0; padding: 0; padding-left: 0px; padding-right: 0px; text-align: left; =
+width: 274px;">
+                            <table class=3D"row" style=3D"border-collapse: =
+collapse; border-spacing: 0; display: table; padding: 0; position: relative=
+; text-align: left; vertical-align: top; width: 100%;">
+                              <tbody>
+                                <tr style=3D"padding: 0; text-align: left; =
+vertical-align: top;">
+                                  <td colspan=3D"2" style=3D"Margin: 0; col=
+or: #0a0a0a; font-family: Helvetica, Arial, sans-serif; font-size: 16px; fo=
+nt-weight: normal; line-height: 19px; margin: 0; padding: 0; text-align: le=
+ft;">
+                                    <table class=3D"spacer" style=3D"border=
+-collapse: collapse; border-spacing: 0; padding: 0; text-align: left; verti=
+cal-align: top;" width=3D"100%">
+                                      <tbody>
+                                        <tr style=3D"padding: 0; text-align=
+: left; vertical-align: top;">
+                                          <td height=3D"16px" style=3D"Marg=
+in: 0; color: #0a0a0a; font-family: Helvetica, Arial, sans-serif; font-size=
+: 16px; font-weight: normal; line-height: 16px; margin: 0; padding: 0; text=
+-align: left;">&nbsp;</td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                    <p class=3D"font-style-blueish text-cen=
+ter" style=3D"Margin: 0; Margin-bottom: 10px; color: #0061ab; font-family: =
+Helvetica, Arial, sans-serif; font-size: small; font-weight: normal; line-h=
+eight: 19px; margin: 0; margin-bottom: 10px; padding: 0; text-align: center=
+;">Get the American Airlines app</p>
+                                  </td>
+                                </tr>
+                                <tr style=3D"padding: 0; text-align: left; =
+vertical-align: top;">
+                                  <td style=3D"Margin: 0; color: #0a0a0a; f=
+ont-family: Helvetica, Arial, sans-serif; font-size: 16px; font-weight: nor=
+mal; line-height: 19px; margin: 0; padding: 0; text-align: left;">
+                                    <center><a href=3D"https://itunes.apple=
+.com/us/app/american-airlines/id382698565?mt=3D8">
+                                    <img class=3D"float-center" src=3D"http=
+://images.appriss.com/amair/email/Download-AppStore.png" style=3D"-ms-inter=
+polation-mode: bicubic; Margin: 0 auto; clear: both; display: block; float:=
+ none; margin: 0 auto; max-width: 100%; outline: none; text-align: center; =
+text-decoration: none; width: auto;"/></a></center>
+                                    <table class=3D"spacer" style=3D"border=
+-collapse: collapse; border-spacing: 0; padding: 0; text-align: left; verti=
+cal-align: top;">
+                                      <tbody>
+                                        <tr style=3D"padding: 0; text-align=
+: left; vertical-align: top;">
+                                          <td height=3D"16px" style=3D"Marg=
+in: 0; color: #0a0a0a; font-family: Helvetica, Arial, sans-serif; font-size=
+: 16px; font-weight: normal; line-height: 16px; margin: 0; padding: 0; text=
+-align: left;">&nbsp;</td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </td>
+                                  <td style=3D"Margin: 0; color: #0a0a0a; f=
+ont-family: Helvetica, Arial, sans-serif; font-size: 16px; font-weight: nor=
+mal; line-height: 19px; margin: 0; padding: 0; text-align: left;">
+                                    <center><a href=3D"https://play.google.=
+com/store/apps/details?id=3Dcom.aa.android&hl=3Den">
+                                    <img class=3D"float-center" src=3D"http=
+://images.appriss.com/amair/email/Download-GooglePlay.png" style=3D"-ms-int=
+erpolation-mode: bicubic; Margin: 0 auto; clear: both; display: block; floa=
+t: none; margin: 0 auto; max-width: 100%; outline: none; text-align: center=
+; text-decoration: none; width: auto;"/></a></center>
+                                    <table class=3D"spacer" style=3D"border=
+-collapse: collapse; border-spacing: 0; padding: 0; text-align: left; verti=
+cal-align: top;">
+                                      <tbody>
+                                        <tr style=3D"padding: 0; text-align=
+: left; vertical-align: top;">
+                                          <td height=3D"16px" style=3D"Marg=
+in: 0; color: #0a0a0a; font-family: Helvetica, Arial, sans-serif; font-size=
+: 16px; font-weight: normal; line-height: 16px; margin: 0; padding: 0; text=
+-align: left;">&nbsp;</td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </th>
+                          <th class=3D"small-12 large-3" style=3D"Margin: 0=
+; color: #0a0a0a; font-family: Helvetica, Arial, sans-serif; font-size: 16p=
+x; font-weight: normal; line-height: 19px; margin: 0; padding: 0; padding-l=
+eft: 8px; padding-right: 8px; text-align: left; width: 129px;"></th>
+                        </tr>
+                      </tbody>
+                    </table></center>
+
+                   =20
+                    <table class=3D"spacer" style=3D"border-collapse: colla=
+pse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top;"=
+>
+                      <tbody>
+                        <tr style=3D"padding: 0; text-align: left; vertical=
+-align: top;">
+                          <td height=3D"16px" style=3D"Margin: 0; color: #0=
+a0a0a; font-family: Helvetica, Arial, sans-serif; font-size: 16px; font-wei=
+ght: normal; line-height: 16px; margin: 0; padding: 0; text-align: left;">&=
+nbsp;</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                   =20
+                    <table style=3D"border-collapse: collapse; border-spaci=
+ng: 0; padding: 0; text-align: left; vertical-align: top; max-width: 600px;=
+">
+                      <tbody>
+                        <tr style=3D"padding: 0; text-align: left; vertical=
+-align: top;">
+                          <td style=3D"font-family: Helvetica, Arial, sans-=
+serif; font-size: 13px; font-weight: normal; line-height: 13px; margin: 0; =
+padding-left: 0px; padding-right:0px; text-align: left;">
+                           =20
+                           =20
+                              <p align=3D"left" style=3D"color:#627A88; fon=
+t-size: 13px;"><B>Baggage Information</B><BR><BR>Baggage charges for your i=
+tinerary will be governed by American Airlines    BAG ALLOWANCE     -DFWANC=
+-No free checked bags/ American Airlines     BAG ALLOWANCE     -ANCDFW-No f=
+ree checked bags/ American Airlines     1STCHECKED BAG FEE-DFWANC-USD30.00/=
+ American Airlines /UP TO 50 LB/23 KG    AND UP TO 62 LINEAR IN/158 LINEAR =
+CM    1STCHECKED BAG FEE-ANCDFW-USD30.00/ American Airlines /UP TO 50 LB/23=
+ KG    AND UP TO 62 LINEAR IN/158 LINEAR CM    2NDCHECKED BAG FEE-DFWANC-US=
+D40.00/ American Airlines /UP TO 50 LB/23 KG    AND UP TO 62 LINEAR IN/158 =
+LINEAR CM    2NDCHECKED BAG FEE-ANCDFW-USD40.00/ American Airlines /UP TO 5=
+0 LB/23 KG    AND UP TO 62 LINEAR IN/158 LINEAR CM    ADDITIONAL ALLOWANCES=
+ AND/OR DISCOUNTS MAY APPLY <BR></p>
+                           =20
+                           =20
+                              <p align=3D"left" style=3D"color:#627A88; fon=
+t-size: 13px;"></p>
+                           =20
+                           =20
+                              <p align=3D"left" style=3D"color:#627A88; fon=
+t-size: 13px;"></p>
+                           =20
+                           =20
+                           =20
+                              <p style=3D"color:#627A88; font-size: 13px;" =
+align=3D"left"></p>
+                           =20
+                            <TEXT>
+                             =20
+                                <p align=3D"left" style=3D"color:#627A88; f=
+ont-size: 13px;">If you have purchased a NON-REFUNDABLE fare the itinerary =
+must be canceled before the ticketed departure time of the first unused cou=
+pon or the ticket has NO VALUE..  If the fare allows changes, a fee may be =
+assessed for changes and restrictions may apply.  <br /> <br /> You have up=
+ to 24 hours from the time of ticket purchase to receive a full refund if y=
+ou booked at least 2 days before departure. You must <a STYLE=3D"TEXT-DECOR=
+ATION: NONE;COLOR: #0078d2"&nbsp;&nbsp;href=3D"https://www.aa.com/loyalty/l=
+ogin/optional">log in</a> on aa.com or <a STYLE=3D"TEXT-DECORATION: NONE;CO=
+LOR: #0078d2"&nbsp;&nbsp;href=3D"https://www.aa.com/i18n/customer-service/c=
+ontact-american/reservations-and-ticket-changes.jsp">Contact Reservations</=
+a> to cancel.&nbsp;&nbsp;Once cancelled, your refund will be processed auto=
+matically.<a STYLE=3D"TEXT-DECORATION: NONE;COLOR: #0078d2"href=3D"https://=
+www.aa.com/i18n/customer-service/support/customer-service-plan.jsp#guarante=
+edfares">Refund Policy&#62;&#62;</a>.</p>
+                             =20
+                           =20
+                            <br /><span align=3D"left" style=3D"color:#627A=
+88; font-size: 13px;"><strong>Some American Airlines check-in counters do n=
+ot accept cash as a form  of payment. For more information, visit our <a ST=
+YLE=3D"TEXT-DECORATION: NONE;COLOR: #0078d2" href=3D"https://www.aa.com/i18=
+n/travel-info/airports/airport-information.jsp">Airport Information</a> pag=
+e.</strong><br><br><strong>SERVICE & SUPPORT ANIMAL REQUIREMENTS</strong><b=
+r><br>For travel on or after April 1, 2019, the policy for traveling with E=
+motional Support and Service animals has changed&nbsp;&nbsp;Visit <a STYLE=
+=3D"TEXT-DECORATION: NONE;COLOR: #0078d2"href=3D"https://www.aa.com/i18n/tr=
+avel-info/special-assistance/service-animals.jsp">Traveling with Service An=
+imals</a> for more information.<br><br><br /><center> <img src=3D"http://im=
+ages.appriss.com/amair/email/HazmatIcons-ecigar.png" style=3D"margin:0px 0p=
+x; padding:0;width:50px;height:50px;" border=3D"0" /> <img src=3D"http://im=
+ages.appriss.com/amair/email/HazmatIcons-batteries.png" style=3D"margin:0px=
+ 0px; padding:0;width:50px;height:50px;" border=3D"0" /> <img src=3D"http:/=
+/images.appriss.com/amair/email/HazmatIcons-explosives.png" style=3D"margin=
+:0px 0px; padding:0;width:50px;height:50px;" border=3D"0" /> <img src=3D"ht=
+tp://images.appriss.com/amair/email/HazmatIcons-aerosol.png" style=3D"margi=
+n:0px 0px; padding:0;width:50px;height:50px;" border=3D"0" /> <img src=3D"h=
+ttp://images.appriss.com/amair/email/HazmatIcons-flammables.png" style=3D"m=
+argin:0px 0px; padding:0;width:50px;height:50px;" border=3D"0" /> <img src=
+=3D"http://images.appriss.com/amair/email/HazmatIcons-oxidizers.png" style=
+=3D"margin:0px 0px; padding:0;width:50px;height:50px;" border=3D"0" /> <img=
+ src=3D"http://images.appriss.com/amair/email/HazmatIcons-toxins.png" style=
+=3D"margin:0px 0px; padding:0;width:50px;height:50px;" border=3D"0" /> <img=
+ src=3D"http://images.appriss.com/amair/email/HazmatIcons-radioactive.png" =
+style=3D"margin:0px 0px; padding:0;width:50px;height:50px;" border=3D"0" />=
+ <img src=3D"http://images.appriss.com/amair/email/HazmatIcons-corosives.pn=
+g" style=3D"margin:0px 0px; padding:0;width:50px;height:50px;a" border=3D"0=
+" /></center> <br /> Some everyday products, like e-cigarettes and aerosol =
+spray starch, can be dangerous when transported on the aircraft in carry-on=
+ and/or checked baggage.&nbsp;&nbsp;Changes in temperature or pressure can =
+cause some items to leak, generate toxic fumes or start a fire.&nbsp;&nbsp;=
+Carriage of prohibited items may result in fines or in certain cases impris=
+onment.&nbsp;&nbsp;Please ensure there are no forbidden hazardous materials=
+ in your baggage like:<br><br>Some Lithium batteries (e.g. spares in checke=
+d baggage, batteries over a certain size), Explosives / Fireworks, Strike a=
+nywhere matches/ Lighter fluid,&nbsp;&nbsp;Compressed gases / Aerosols Oxyg=
+en bottles/ Liquid oxygen, Flammable liquids, Pesticides/ Poison, Corrosive=
+ material.<br><br>There are special exceptions for small quantities (up to =
+70 ounces total) of medicinal and toilet articles carried in your luggage, =
+spare lithium batteries for most consumer electronic devices in carry-on ba=
+ggage, and certain smoking materials carried on your person. <br><br>Certai=
+n items are required to be carried with you onboard the aircraft. For examp=
+le, spare lithium batteries for portable electronic devices, cigarette ligh=
+ters and e-cigarettes must be removed from checked or gate-checked baggage =
+and carried onboard the aircraft. However,  e-cigarettes may not be used on=
+-board the aircraft.<br><br>Traveling with medical oxygen, liquid oxygen, m=
+obility aids and other assistive devices may require airline pre-approval o=
+r be restricted from carriage entirely. Passengers requiring these items sh=
+ould contact the airline operator for information on use of such devices.<b=
+r><br>To change your reservation, please call 1-800-433-7300 and refer to y=
+our record locator.<br><br> <strong>NOTICE OF INCORPORATED TERMS OF CONTRAC=
+T</strong><br><br>Air Transportation, whether it is domestic or internation=
+al (including domestic portions of international  journeys), is subject to =
+the individual terms of the transporting air carriers, which are herein inc=
+orporated  by reference and made part of the contract of carriage.&nbsp;&nb=
+sp;Other carriers on which you may be ticketed may  have different conditio=
+ns of carriage.&nbsp;&nbsp;International air transportation, including the =
+carrier's liability, may  also be governed by applicable tariffs on file wi=
+th the U.S. and other governments and by the Warsaw  Convention, as amended=
+, or by the Montreal Convention.&nbsp;&nbsp;Incorporated terms may include,=
+ but are not  restricted to: 1. Rules and limits on liability for personal =
+injury or death, 2. Rules and limits on liability for  baggage, including f=
+ragile or perishable goods, and availability of excess valuation charges, 3=
+. Claim  restrictions, including time periods in which passengers must file=
+ a claim or bring an action against the  air carrier, 4. Rights on the air =
+carrier to change terms of the contract, 5. Rules on reconfirmation of  res=
+ervations, check-in times and refusal to carry, 6. Rights of the air carrie=
+r and limits on liability for  delay or failure to perform service, includi=
+ng schedule changes, substitution of alternate air carriers or  aircraft an=
+d rerouting.&nbsp;&nbsp; <br><br>You can obtain additional information on i=
+tems 1 through 6 above at any U.S. location where the  transporting air car=
+rier's tickets are sold.&nbsp;&nbsp;You have the right to inspect the full =
+text of each transporting air  carrier's terms at its airport and city tick=
+et offices.&nbsp;&nbsp;You also have the right, upon request, to receive  (=
+free of charge) the full text of the applicable terms incorporated by refer=
+ence from each of the transporting  air carriers.&nbsp;&nbsp;Information on=
+ ordering the full text of each air carrier's terms is available at any U.S=
+. location  where the air carrier's tickets are sold or you can click on th=
+e Conditions of Carriage link below.&nbsp;&nbsp;<br><br>Air transportation =
+on American Airlines and the American Eagle carriers&#174; is subject to Am=
+erican's <a STYLE=3D"TEXT-DECORATION: NONE;COLOR: #0078d2"href=3D"http://ww=
+w.aa.com/pubcontent/en_US/customerService/customerCommitment/conditionsOfCa=
+rriage.jsp?v_locale=3Den_US&v_mobileUAFlag=3DAA"> conditions of carriage.</=
+a><br><br>NOTICE: This email and any information, files or attachments are =
+for the exclusive and confidential use  of the intended recipient. This mes=
+sage contains confidential and proprietary information of American Airlines=
+ (such as customer and business data) that may not be read, searched, distr=
+ibuted or otherwise used by anyone other than the intended recipient. If yo=
+u are not an intended recipient, do  not read, distribute, or take action i=
+n reliance upon this message. Do you think you received this  email by mist=
+ake? If so, please forward to privacy@aa.com with an explanation, and then =
+delete this  message from your computer.</span><br />
+                            <p align=3D"left" style=3D"color:#627A88; font-=
+size: 13px;">NRID: 3325114413601408452326800</p>
+                             </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                   =20
+                    </td>
+                    </tr>
+                    </table>
+                   =20
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </center>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <img src=3D"http://aa.appriss.com/marketing-api/icon_image" BORDER=3D"0" =
+HEIGHT=3D"1" WIDTH=3D"1" />
+</body>
+</html>
+
+
+
+------=_Part_6380430_486743485.1555249561576--
