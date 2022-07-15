@@ -7,9 +7,9 @@ use PhpMimeMailParser\Parser;
 class TEReservationEmailParserService {
 
   /**
-   * The email parser.
+   * The PhpMimeMailParser email parser.
    *
-   * @var Parser $parser
+   * @var Parser
    */
   protected $parser;
 
@@ -21,27 +21,36 @@ class TEReservationEmailParserService {
   }
 
   /**
-   * Get airline name. Parses the 'from' header
-   * returning everything before the email address,
-   * which should be the airline name if this pattern holds.
+   * Get an array of reservation data using a file path to an .eml file.
    *
-   * @param string $path_to_file
+   * @param string $file_path
    *  The path to the .eml file
    *
    * @return array
    */
-  public function getReservationData(string $path_to_file) : array {
-    $this->parser->setText(file_get_contents($path_to_file));
+  public function getReservationData(string $file_path) : array {
+    // Make sure we have an .eml file.
+    $extension = pathinfo($file_path, PATHINFO_EXTENSION);
+    if ($extension != 'eml') {
+      return [];
+    }
 
+    // Get the file contents and add them to the email parser.
+    $this->parser->setText(file_get_contents($file_path));
+
+    // Create reservation data array.
     $reservation_data = [];
-    $reservation_data['airline'] = t('@airline', ['@airline' => $this->getAirlineName()]);
-    $reservation_data['record_locator'] = t('@record_locator', [
-      '@record_locator' => $this->getBodyParam('recordLocator')
-    ]);
+    // Get airline name.
+    $reservation_data['airline'] = $this->getAirlineName();
+    // Get record locator.
+    $reservation_data['record_locator'] = $this->getBodyParam('recordLocator');
+    // Get passenger first and last names, concatenate name string with t(),
+    // make lower case with uppercase first letter.
     $reservation_data['passenger_name'] = t('@first_name @last_name', [
-      '@first_name' => $this->getBodyParam('firstName'),
-      '@last_name' => $this->getBodyParam('lastName')
+      '@first_name' => ucfirst(strtolower($this->getBodyParam('firstName'))),
+      '@last_name' => ucfirst(strtolower($this->getBodyParam('lastName'))),
     ]);
+
     return $reservation_data;
   }
 
@@ -54,8 +63,8 @@ class TEReservationEmailParserService {
    */
   protected function getAirlineName() : string {
     $header_from = $this->parser->getHeader('from');
-    $parts = explode('<', $header_from);
-    return $parts[0];
+    $result = explode('<', $header_from);
+    return $result[0];
   }
 
   /**
